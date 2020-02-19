@@ -1,0 +1,10 @@
+# Folders
+__pycache__/
+GUI/__pycache__/
+
+
+# Compiled Source
+
+# Config Files
+*.pyc
+
