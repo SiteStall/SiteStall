@@ -7,4 +7,4 @@ GUI/__pycache__/
 
 # Config Files
 *.pyc
-
+*DS_Store
