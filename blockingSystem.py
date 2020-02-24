@@ -46,7 +46,7 @@ def flushCache():
     # # CAUTION # ----------------------------------------------------------------
 
 
-def block(blocklist, clearCache=False):
+def block(blocklist, flush=False):
     '''
     Prevents Access to the websites specified by the blocklist.
     Sites are blocked by modifying /etc/hosts
@@ -55,14 +55,14 @@ def block(blocklist, clearCache=False):
 
     Args: 
         blocklist, a list of websites to block
-        clearCache, a boolean to determine if the DNS Cache should be Flushed
+        flush, a boolean to determine if the DNS Cache should be Flushed
 
     Returns:
     '''
 
     redirect = "127.0.0.1"
 
-    if clearCache:
+    if flush:
         flushCache()
 
     # Clear previously blocked websites from /etc/hosts
@@ -107,13 +107,13 @@ def unblock():
 # Example: (remove for production)
 # ----------------------------------------------------------------
 
-blocklist = [
-            "www.facebook.com",
-            "www.instagram.com",
-            "www.twitter.com",
-            "www.netflix.com",
-            "www.youtube.com",
-            ]
+# blocklist = [
+#             "www.facebook.com",
+#             "www.instagram.com",
+#             "www.twitter.com",
+#             "www.netflix.com",
+#             "www.youtube.com",
+#             ]
 
 # unblock()
-block(blocklist, clearCache=True)
+# block(blocklist, flush=True)
