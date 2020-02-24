@@ -9,22 +9,9 @@
 # import all the the tkinter library has to offer
 from tkinter import *
 from tkinter import messagebox
+from blockingSystem import block, unblock, flushCache
 
-#-------------------------------------------------------------------------------
-#---Blocking Functions----------------------------------------------------------
-#-------------------------------------------------------------------------------
 
-def block(url_list):
-    # url_list is a list of URL's as strings
-
-    print("Block: ", url_list)
-
-#-------------------------------------------------------------------------------
-
-def unblock(url_list):
-    # url_list is a list of URL's as strings
-
-    print("Unblock: ", url_list)
 
 #-------------------------------------------------------------------------------
 #---GUI Class-------------------------------------------------------------------
@@ -36,10 +23,13 @@ class SiteStallGui:
     #---Initializer-------------------------------------------------------------
     #---------------------------------------------------------------------------
 
-    def __init__(self):
+    def __init__(self, flush=False):
 
         # main window
         self.main = Tk()
+
+        # Noah's fault
+        self.flush = flush
 
         # size of main window (short and wide for top of screen)
         self.main.geometry("300x400")
@@ -125,7 +115,7 @@ class SiteStallGui:
             self.blocked = 0
             self.main['bg'] = 'red'
             # TODO: STOP (unblock sites in payload)
-            unblock(payload)
+            unblock()
 
     #---------------------------------------------------------------------------
 
@@ -139,12 +129,12 @@ class SiteStallGui:
             self.blocked = 0
             self.main['bg'] = 'red'
             # TODO: STOP (unblock sites in payload)
-            unblock(payload)
+            unblock()
         else:
             self.blocked = 1
             self.main['bg'] = 'green'
             # TODO: START (block sites in payload)
-            block(payload)
+            block(payload, flush=self.flush)
 
     #---------------------------------------------------------------------------
 
@@ -161,7 +151,7 @@ class SiteStallGui:
                 self.blocked = 0
                 self.main['bg'] = 'red'
                 # TODO: STOP (unblock sites in payload)
-                unblock(payload)
+                unblock()
 
             # get where cursor is on list
             selection = self.lb.curselection()
@@ -178,8 +168,8 @@ class SiteStallGui:
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    Gui = SiteStallGui()
+#     Gui = SiteStallGui()
 
 #-------------------------------------------------------------------------------
