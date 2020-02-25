@@ -10,8 +10,7 @@
 from tkinter import *
 from tkinter import messagebox
 from blockingSystem import block, unblock, flushCache
-
-
+import sitestall_io as io
 
 #-------------------------------------------------------------------------------
 #---GUI Class-------------------------------------------------------------------
@@ -36,7 +35,7 @@ class SiteStallGui:
         self.main.title("Welcome to Site-Stall")
 
         # list to store URL's in
-        self.url = []
+        self.url = io.getWebsites(getAll=True)
 
         # store state of blocking (blocking/nonblocking) initially 0 (nonblocking)
         self.blocked = 0
@@ -72,7 +71,10 @@ class SiteStallGui:
         self.power.pack()
         self.delete.pack()
 
-        #main window loop initiaition
+        # refresh website list after reading from file
+        self.refreshList()
+
+        # main window loop initiaition
         self.main.mainloop()
 
     #---------------------------------------------------------------------------
@@ -106,6 +108,9 @@ class SiteStallGui:
 
         # add entry to url list
         self.url.append(text)
+
+        # save website to websites.txt
+        io.saveWebsites(text)
 
         # refresh with new data
         self.refreshList()
@@ -161,6 +166,9 @@ class SiteStallGui:
 
             # refresh with updated data
             self.refreshList()
+
+            # update websites.txt
+            io.saveWebsites(self.url, eraseFirst=True)
 
         else:
             messagebox.showinfo("Invalid Action", "There is nothing to delete!")
