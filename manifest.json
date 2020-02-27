@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "SiteStall",
+    "version": "1.0",
+  
+    "description": "Blocks sites etc.",
+  
+    "icons": {
+		"48": "icons/pause.png"
+    },
+  
+    "content_scripts": [
+      	{
+        	"matches": ["<all_urls>"],
+        	"js": ["blocker.js"]
+      	}
+    ],
+
+    "applications": {
+        "gecko": {
+          	"id": "blocker@example.com"
+        }
+      }
+  
+}
+
+  
