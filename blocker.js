@@ -1,3 +1,4 @@
+// TODO: make this a .json?
 var blocklist = ["www.facebook.com", "www.youtube.com", "www.instagram.com"];
 
 function compareURL(blocklist) {
@@ -24,6 +25,7 @@ function block() {
     window.location.replace("https://ix.cs.uoregon.edu/~nzt/");
 
     // Option 3: Popup Message / Warning
+    // window.alert("Nice Try Bud");
 }
 
 // Use this for prints/debugging for now
