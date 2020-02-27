@@ -19,10 +19,14 @@ function block() {
     window.stop();
 
     // Option 1: black out site
-    // document.body.style.border = "10000px solid #2F4F4F";
+    document.body.style.border = "10000px solid #2F4F4F";
+
+    window.alert("This page might be distracting...\nYou have __ minutes left");
+
+    document.body.style.border = "0px solid #2F4F4F";
 
     // Option 2: redirect to our own page with some message
-    window.location.replace("https://ix.cs.uoregon.edu/~nzt/");
+    // window.location.replace("https://ix.cs.uoregon.edu/~nzt/");
 
     // Option 3: Popup Message / Warning
     // window.alert("Nice Try Bud");
@@ -32,3 +36,9 @@ function block() {
 // window.alert("Hello World");
 
 compareURL(blocklist);
+
+// Save data to the current local store
+// localStorage.setItem("username", "John");
+
+// Access some stored data
+// window.alert("username = " + localStorage.getItem("username"));
