@@ -1,5 +1,17 @@
 // TODO: make this a .json?
-var blocklist = ["www.facebook.com", "www.youtube.com", "www.instagram.com"];
+
+var toBeBlocked = ["www.facebook.com", "www.youtube.com", "www.instagram.com"];
+var blocklist = [];
+for(let i = 0; i < toBeBlocked.length; i++) {
+    let item = {site: toBeBlocked[i], time: 0};
+    blocklist.push(item);
+}
+
+var jsonString= JSON.stringify(blocklist);
+window.alert("HERE");
+window.alert(jsonString);
+// window.alert(JSON.parse(jsonString));
+window.alert("Now here");
 
 function compareURL(blocklist) {
     var loc = window.location.hostname;
@@ -8,7 +20,7 @@ function compareURL(blocklist) {
 
     var i;
     for(i = 0; i < blocklistLength; i++) {
-        if(loc.localeCompare(blocklist[i]) == 0) {
+        if(loc.localeCompare(blocklist[i].name) == 0) {
             block();
             break;
         }
