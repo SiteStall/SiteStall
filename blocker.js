@@ -27,7 +27,7 @@ function block() {
 
 var printStorageInfo = 1;
 
-function saveWebsites() {
+function saveWebsites(blocklist) {
     window.alert(JSON.stringify(blocklist));
     listAsString = JSON.stringify(blocklist)
 
@@ -84,5 +84,5 @@ function getWebsites() {
 
 var blocklist = getWebsites();
 compareURL(blocklist);
-saveWebsites();
+saveWebsites(blocklist);
 
