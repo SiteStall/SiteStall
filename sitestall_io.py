@@ -2,7 +2,7 @@
     This file saves user data, such as the website block list.
 
     Author: Jimmy Lam
-    Last Modified: 2/24/20
+    Last Modified: 2/25/20
 """
 
 import subprocess
