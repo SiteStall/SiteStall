@@ -94,21 +94,39 @@ function listenForClicks() {
   document.addEventListener("click", (e) => {
 
 
-    function test(tabs) {
+    function add_row(tabs) {
+      
+      var tr = document.createElement("TR");             
+      var td1 = document.createElement("TD");     
+      var td2 = document.createElement("TD");   
+      var in1 = document.createElement("INPUT");      
+      var in2 = document.createElement("INPUT");      
+      var td2t = document.createTextNode("-"); 
 
-      window.alert("1");
+      tr.appendChild(td1);   
+      tr.appendChild(td2);
+      td1.appendChild(in1);
+      td2.appendChild(in2);
+      in2.appendChild(td2t);
 
-      let site_name = '<input type="text" class="site-name" name="site-name" placeholder="site name" size="25%">';
+      tr.setAttribute("class", "bl-table-row");
 
-      let button = '<input type="button" class="blt-table-delete-row" value="-" style="display: block; margin: 0 auto;">';
+      in1.setAttribute("class", "site-name");                     
+      in1.setAttribute("type", "text");                     
+      in1.setAttribute("size", "25%");      
+      in1.setAttribute("placeholder", "site name");      
+ 
+      in2.setAttribute("class", "bl-table-delete-row");   
+      in2.setAttribute("type", "button"); 
+      in2.setAttribute("style", "display: block; margin: 0 auto;"); 
+      in2.setAttribute("value", "-"); 
 
+      document.getElementById("bl-table").appendChild(tr); 
+    }
 
-      document.getElementsByTagName('bl-table')[0].appendChild('<tr class="blt-table-row"><td>' + site_name + '</td><td>' + button + '</td></tr>');
-
-      // $('.bl-table tr:first').after('<tr class="blt-table-row"><td>' + site_name + '</td><td>' + button + '</td></tr>');
-
-      window.alert("2");
-
+    function delete_row(tabs) {
+      var row = document.getElementsByClassName("bl-table-row")[0];
+      row.parentNode.removeChild(row); 
     }
 
 
@@ -160,9 +178,13 @@ function listenForClicks() {
      * Get the active tab
      */
 
-    if (e.target.classList.contains("blt-table-add-row")) {
+    if (e.target.classList.contains("bl-table-add-row")) {
       browser.tabs.query({active: true, currentWindow: true})
-        .then(test)
+        .then(add_row)
+    }
+    if (e.target.classList.contains("bl-table-delete-row")) {
+      browser.tabs.query({active: true, currentWindow: true})
+        .then(delete_row)
     }
   });
 }
@@ -184,5 +206,5 @@ function reportExecuteScriptError(error) {
  * If we couldn't inject the script, handle the error.
  */
 browser.tabs.executeScript({file: "/content_scripts/block.js"})
-.then(test)
+.then(listenForClicks)
 .catch(reportExecuteScriptError);
