@@ -31,7 +31,7 @@ function saveWebsites(blocklist) {
     window.alert(JSON.stringify(blocklist));
     listAsString = JSON.stringify(blocklist)
 
-    localStorage["websitesList"] = listAsString;
+    localStorage["websitesList"] = listAsString; 
 
     var saveString = "Saving the following websites to local storage:\n"
     for (let i = 0; i < blocklist.length; i++) {
