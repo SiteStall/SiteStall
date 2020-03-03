@@ -2,6 +2,10 @@
 NOTES:
 	- Will need to write some variables (likely threshold and time_left) to storage in a file
 
+	TODO: 
+
+		- Connect this to the blocking module, so functions are called each time.
+		- Deal with I/O to save threshold and time_left
 */
 
 
@@ -13,12 +17,17 @@ var time_left = MinutesToMilliseconds(threshold); //Variable used in tracking ti
 var timeout; 
 var interval; 
 
-function stopTime(){
-	clearTimeout(timeout);
-	clearInterval(interval);
+function MinutesToMilliseconds(time){
+	/*
+		Convert a given time in minutes to milliseconds (helper for setTimeout)
+	*/
+	return time*(60000)
 }
 
 function timeUp(timeout){
+	/*
+		Called if user is on blocklisted site and runs out of time.
+	*/
 	console.log("Start blocking!")
 	stopTime();
 
@@ -26,6 +35,9 @@ function timeUp(timeout){
 }
 
 function adjustTimeLeft(){ 
+	/*
+		Function which decrements the time left every second.
+	*/
     time_left -= 1000
     console.log("Time left is now:", time_left)
 
@@ -35,23 +47,25 @@ function adjustTimeLeft(){
     }
 }
 
-
-// Convert a given time in minutes to milliseconds (helper for setTimeout)
-function MinutesToMilliseconds(time){
-	return time*(60000)
-}
-
 function startTime(time_before_blocking){
 	/*
-		Function which is called when blocklisted site is present,
+		Function which is called when a user visits a blocklisted site,
 		begins to track time:
-			- if time_before_blocking runs out, calls blocker and exits. 
-			- if not distracted anymore, returns time_distracted - threshold.
 	*/
 
 	//Triggered when they visit a blockslisted site.
 	timeout = setTimeout(timeUp, time_before_blocking);
 	interval = setInterval(adjustTimeLeft, 1000);	
+}
+
+function stopTime(){
+	/*
+		Function which is called when a user visits a non-blocklisted site
+	*/
+	clearTimeout(timeout);
+	clearInterval(interval);
+
+	//Write the new time to storage file.
 }
 
 startTime(time_left, true)
