@@ -7,12 +7,16 @@
 
     "icons": {
 		"48": "icons/pause.png"
-    },
+	},
+	
+	"background" :{
+		"scripts": ["jquery-3.4.1.min.js"]
+	},
 
     "content_scripts": [
       	{
         	"matches": ["<all_urls>"],
-        	"js": ["blocker.js"]
+        	"js": ["blocker.js", "jquery-3.4.1.min.js"]
       	}
     ],
 
@@ -25,15 +29,15 @@
     "permissions": [
         "*://developer.mozilla.org/*",
 		"webRequest",
-    "activeTab",
+    	"activeTab",
 		"storage",
 		"unlimitedStorage"
     ],
 
     "browser_action": {
-    "default_icon": "icons/pause.png",
-    "default_title": "SiteStall",
-    "default_popup": "popup/widget.html"
+		"default_icon": "icons/pause.png",
+		"default_title": "SiteStall",
+		"default_popup": "popup/widget.html"
     }
 
 }
