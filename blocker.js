@@ -27,13 +27,92 @@ function block() {
 
 var printStorageInfo = 1;
 
-function saveWebsites(blocklist) {
+/** Function: addWebsite()
+ *      Adds a website to the block list. The current block list being used should be set equal
+ *      to the return of this function, and the blocklist should be passed as an argument.
+ *
+ *  Args:
+ *      theSite: The website url to add to the block list
+ *      curBlockList: The current block list being used.
+ *      checkDuplicates: checks to make sure the url from theSite is not already
+ *                       in the blocklist. If == 1, do not add the duplicate.
+ *                       If == 0, add theSite even if it is a duplicate.
+ *      shouldSave: If == 1, automatically save the blocklist to local storage,
+ *                  do nothing otherwise.
+ *
+ *  Returns:
+ *      Returns curBlockList with theSite added to it if checkDuplicates == 1.
+ */
+
+function addWebsite(theSite, curBlockList, checkDuplicates=0, shouldSave=0) {
+    // check to make sure the website is not already in the block list
+    if (checkDuplicates) {
+        var listLen = curBlockList.length;
+        for (let i = 0; i < listLen; i++) {
+            if (theSite.localeCompare(curBlockList[i].site) === 0) {
+                //window.alert("WARNING: " + theSite + ' is already on the block list!');
+                return curBlockList;
+            }
+        }
+    }
+
+    let item = {site: theSite, time: 0};
+    curBlockList.push(item);
+
+    if (shouldSave) {
+        saveWebsites();
+    }
+    return curBlockList;
+}
+
+/** Function: removeWebsite()
+ *      Removes a website to the block list. The current block list being used should be set equal
+ *      to the return of this function, and the blocklist should be passed as an argument. To
+ *      delete all websites from the list, pass 'all' into theSite argument.
+ *
+ *  Args:
+ *      theSite: The website url to add to the block list
+ *      curBlockList: The current block list being used.
+ *      shouldSave: If == 1, automatically save the blocklist to local storage,
+ *                  do nothing otherwise.
+ *
+ *  Returns:
+ *      Returns curBlockList with theSite removed.
+ */
+
+function removeWebsite(theSite, curBlockList, shouldSave=0) {
+    // removes a website from the blocklist. If theSite == 'all',
+    // then remove all the websites in the list.
+
+    var listLen = curBlockList.length;
+
+    if (theSite.localeCompare("all") === 0) {
+        curBlockList.splice(0);
+        return curBlockList;
+    }
+
+    for (let i = 0; i < listLen; i++) {
+        if (theSite.localeCompare(curBlockList[i].site) === 0) {
+            curBlockList.splice(i, 1);
+            //window.alert("deleted " + deleted);
+
+            if (shouldSave) {
+                saveWebsites();
+            }
+            return curBlockList;
+        }
+    }
+
+    return curBlockList;
+}
+
+function saveWebsites() {
     window.alert(JSON.stringify(blocklist));
-    listAsString = JSON.stringify(blocklist)
+    listAsString = JSON.stringify(blocklist);
 
-    localStorage["websitesList"] = listAsString; 
+    localStorage["websitesList"] = listAsString;
 
-    var saveString = "Saving the following websites to local storage:\n"
+    var saveString = "Saving the following websites to local storage:\n";
     for (let i = 0; i < blocklist.length; i++) {
         saveString = saveString.concat('\tname: ', blocklist[i].site, '\ttime: ', blocklist[i].time, '\n');
     }
@@ -48,13 +127,13 @@ function getWebsites() {
     
     var storedNames = localStorage["websitesList"];
     window.alert(localStorage["websitesList"]);
-    
 
     if(storedNames != null) {
+        // FIXME: fix if array is empty (all entries were removed)
 
         storedNames = JSON.parse(storedNames);
 
-        var websitesRead = "The following websites were retrieved: \n"
+        var websitesRead = "The following websites were retrieved: \n";
         for (let i = 0; i < storedNames.length; i++) {
             websitesRead = websitesRead.concat("\tname: ", storedNames[i].site, "\ttime: ", storedNames[i].time, '\n');
         }
@@ -72,17 +151,22 @@ function getWebsites() {
         window.alert("No blocklist stored\n(using temporary default for now)");
         var tempToBeBlocked = ["www.facebook.com", "www.youtube.com", "www.instagram.com", "slither.io"];
         var tempBlocklist = [];
-        for(let i = 0; i < tempToBeBlocked.length; i++) {
-            let item = {site: tempToBeBlocked[i], time: 0};
-            tempBlocklist.push(item);
+        for (let i = 0; i < tempToBeBlocked.length; i++) {
+            tempBlocklist = addWebsite(tempToBeBlocked[i], tempBlocklist);
         }
         // var jsonString= JSON.stringify(blocklist);
         return tempBlocklist;
     }
 }
 
+function testAddRemove() {
+    blocklist = addWebsite('twitter.com', blocklist, 1);
+    blocklist = addWebsite('twitter.com', blocklist, 1);
+    blocklist = removeWebsite('slither.io', blocklist);
+}
 
 var blocklist = getWebsites();
-compareURL(blocklist);
+testAddRemove();
 saveWebsites(blocklist);
 
+compareURL(blocklist);
