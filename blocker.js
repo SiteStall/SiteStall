@@ -32,7 +32,7 @@ var printStorageInfo = 1;
  *      to the return of this function, and the blocklist should be passed as an argument.
  *
  *  Args:
- *      theSite: The website url to add to the block list
+ *      url: The website url to add to the block list
  *      curBlockList: The current block list being used.
  *      checkDuplicates: checks to make sure the url from theSite is not already
  *                       in the blocklist. If == 1, do not add the duplicate.
@@ -44,19 +44,19 @@ var printStorageInfo = 1;
  *      Returns curBlockList with theSite added to it if checkDuplicates == 1.
  */
 
-function addWebsite(theSite, curBlockList, checkDuplicates=0, shouldSave=0) {
+function addWebsite(url, curBlockList, checkDuplicates=0, shouldSave=0) {
     // check to make sure the website is not already in the block list
     if (checkDuplicates) {
         var listLen = curBlockList.length;
         for (let i = 0; i < listLen; i++) {
-            if (theSite.localeCompare(curBlockList[i].site) === 0) {
+            if (url.localeCompare(curBlockList[i].site) === 0) {
                 //window.alert("WARNING: " + theSite + ' is already on the block list!');
                 return curBlockList;
             }
         }
     }
 
-    let item = {site: theSite, time: 0};
+    let item = {site: url, time: 0};
     curBlockList.push(item);
 
     if (shouldSave) {
@@ -71,7 +71,7 @@ function addWebsite(theSite, curBlockList, checkDuplicates=0, shouldSave=0) {
  *      delete all websites from the list, pass 'all' into theSite argument.
  *
  *  Args:
- *      theSite: The website url to add to the block list
+ *      url: The website url to add to the block list
  *      curBlockList: The current block list being used.
  *      shouldSave: If == 1, automatically save the blocklist to local storage,
  *                  do nothing otherwise.
@@ -80,19 +80,19 @@ function addWebsite(theSite, curBlockList, checkDuplicates=0, shouldSave=0) {
  *      Returns curBlockList with theSite removed.
  */
 
-function removeWebsite(theSite, curBlockList, shouldSave=0) {
+function removeWebsite(url, curBlockList, shouldSave=0) {
     // removes a website from the blocklist. If theSite == 'all',
     // then remove all the websites in the list.
 
     var listLen = curBlockList.length;
 
-    if (theSite.localeCompare("all") === 0) {
+    if (url.localeCompare("all") === 0) {
         curBlockList.splice(0);
         return curBlockList;
     }
 
     for (let i = 0; i < listLen; i++) {
-        if (theSite.localeCompare(curBlockList[i].site) === 0) {
+        if (url.localeCompare(curBlockList[i].site) === 0) {
             curBlockList.splice(i, 1);
             //window.alert("deleted " + deleted);
 
