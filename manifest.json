@@ -20,7 +20,14 @@
         "gecko": {
           	"id": "blocker@example.com"
         }
-      }
+    },
+
+    "permissions": [
+        "*://developer.mozilla.org/*",
+		"webRequest",
+		"storage",
+		"unlimitedStorage"
+    ]
   
 }
 
