@@ -1,6 +1,8 @@
 // TODO: make this a .json?
 
-var toBeBlocked = ["www.facebook.com", "www.youtube.com", "www.instagram.com"];
+var toBeBlocked = ["www.facebook.com", "www.youtube.com", "www.instagram.com", "slither.io"];
+// blocklist = getWebsites(); // TODO: uncomment this to get websites
+
 var blocklist = [];
 for(let i = 0; i < toBeBlocked.length; i++) {
     let item = {site: toBeBlocked[i], time: 0};
@@ -54,3 +56,39 @@ compareURL(blocklist);
 
 // Access some stored data
 // window.alert("username = " + localStorage.getItem("username"));
+
+var printStorageInfo = 1;
+
+function saveWebsites() {
+    listAsString = JSON.stringify(blocklist)
+
+    localStorage.setItem("websitesList", listAsString);
+
+    var saveString = "Saving the following websites to local storage:\n"
+    for (let i = 0; i < blocklist.length; i++) {
+        saveString = saveString.concat('\tname: ', blocklist[i].site, '\ttime: ', blocklist[i].time, '\n');
+    }
+
+    if (printStorageInfo) {  // change to 0 to not print this
+        window.alert(saveString);
+    }
+    console.log(saveString);
+}
+
+function getWebsites() {
+    var storedNames = JSON.parse(localStorage.getItem("websitesList"));
+
+    var websitesRead = "The following websites were retrieved: \n"
+    for (let i = 0; i < storedNames.length; i++) {
+        websitesRead = websitesRead.concat("\tname: ", storedNames[i].site, "\ttime: ", storedNames[i].time, '\n');
+    }
+
+    if (printStorageInfo) {  // change to 0 to not print this
+        window.alert(websitesRead);
+    }
+    console.log(websitesRead);
+
+    return storedNames;
+}
+saveWebsites();
+
