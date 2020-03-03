@@ -2,13 +2,13 @@
     "manifest_version": 2,
     "name": "SiteStall",
     "version": "1.0",
-  
+
     "description": "Blocks sites etc.",
-  
+
     "icons": {
 		"48": "icons/pause.png"
     },
-  
+
     "content_scripts": [
       	{
         	"matches": ["<all_urls>"],
@@ -25,10 +25,15 @@
     "permissions": [
         "*://developer.mozilla.org/*",
 		"webRequest",
+    "activeTab",
 		"storage",
 		"unlimitedStorage"
-    ]
-  
-}
+    ],
 
-  
+    "browser_action": {
+    "default_icon": "icons/pause.png",
+    "default_title": "SiteStall",
+    "default_popup": "popup/widget.html"
+    }
+
+}

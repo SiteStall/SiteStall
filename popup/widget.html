@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="widget.css"/>
+  </head>
+
+<body>
+
+  <div id="popup-content">
+
+    ~Site Stall~
+    <br>
+    <br>
+    <label for="dailyTime">Choose a daily limit (H:M:S):</label>
+
+    <select id="dailyTime">
+      <option value="00">--select--</option>
+      <option value="15">00:15:00</option>
+      <option value="30">00:30:00</option>
+      <option value="45">00:45:00</option>
+      <option value="60">01:00:00</option>
+      <option value="75">01:15:00</option>
+      <option value="90">01:30:00</option>
+      <option value="105">01:45:00</option>
+      <option value="120">02:00:00</option>
+    </select>
+
+    <br>
+    <br>
+    Distact Time Remaining:
+    <br>
+    <span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
+    <br>
+    <br>
+    BlockList
+
+    <!-- <ul id="dynamic-list"></ul> -->
+    <div class="bl-container">
+
+      <table class="bl-table">
+
+        <tr>
+
+          <th>Site Name</th>
+          <th>
+            <input type="button" id="blt-table-add-row" class="blt-table-add-row" value="+" style="display: block; margin: 0 auto;">
+          </th>
+
+        </tr>
+
+        <tr class="blt-table-row">
+
+            <td>
+              <input type="text" class="site-name" name="site-name" placeholder="site name" size="25%">
+            </td>
+
+            <td>
+              <input type="button" class="blt-table-delete-row" value="-" style="display: block; margin: 0 auto;">
+            </td>
+
+        </tr>
+
+
+
+      </table>
+
+    </div>
+
+    <!-- <input type="text" id="candidate"/> -->
+
+    <br>
+
+    <!-- <div class="button add">Add From Input Box</div>
+    <div class="button addCurrent">Add Current Site</div>
+    <div class="button remove">Remove</div> -->
+
+
+    <br>
+
+    <a href="stats.html" target="targetframe">Stats</a>
+
+  </div>
+
+  <!-- <div id="error-content" class="hidden">
+    <p>Can't block this web page.</p><p>Try a different page.</p>
+  </div> -->
+
+  <!-- <script>
+
+  $(document).on('click', '.blt-table-add-row', function() {
+
+    window.alert("wtf");
+
+    let site_name = '<input type="text" class="site-name" name="site-name" placeholder="site name" size="25%">';
+
+    let button = '<input type="button" class="blt-table-delete-row" value="-" style="display: block; margin: 0 auto;">';
+
+    $('.bl-table tr:first').after('<tr class="blt-table-row"><td>' + site_name + '</td><td>' + button + '</td></tr>');
+
+  });
+
+  </script> -->
+  <script src="widget.js"></script>
+
+
+</body>
+
+</html>
