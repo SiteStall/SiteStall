@@ -4,5 +4,3 @@ yyoytube.com
 test.py
 bing.com
 yahoo.com
-hi
-hello
