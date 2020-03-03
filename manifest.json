@@ -8,7 +8,7 @@
     "icons": {
 		"48": "icons/pause.png"
 	},
-	
+
 	"background" :{
 		"scripts": ["jquery-3.4.1.min.js"]
 	},
@@ -37,7 +37,7 @@
     "browser_action": {
 		"default_icon": "icons/pause.png",
 		"default_title": "SiteStall",
-		"default_popup": "popup/widget.html"
+		"default_popup": "widget/widget.html"
     }
 
 }

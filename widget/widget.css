@@ -1,0 +1,26 @@
+html, body {
+  width: 250px;
+}
+
+.hidden {
+  display: none;
+}
+
+.button {
+}
+
+.add:hover {
+  background-color: #CFF2F2;
+}
+
+.remove:hover {
+  background-color: #CFF2F2;
+}
+
+.add {
+  background-color: #E5F2F2;
+}
+
+.remove {
+  background-color: #FBFBC9;
+}

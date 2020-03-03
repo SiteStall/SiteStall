@@ -1,0 +1,111 @@
+
+document.getElementById('dailyTime').addEventListener('change', function() {
+
+  window.alert("2");
+
+  var min = document.getElementById('minutes');
+  var sec = document.getElementById('seconds');
+
+  while( min.firstChild ) {
+    min.removeChild( min.firstChild );
+  }
+  while( sec.firstChild ) {
+    sec.removeChild( sec.firstChild );
+  }
+  min.appendChild( document.createTextNode(this.value) );
+  sec.appendChild( document.createTextNode('00') );
+
+});
+
+
+/**
+ * Listen for clicks on the buttons, and send the appropriate message to
+ * the content script in the page.
+ */
+function listenForClicks() {
+  document.addEventListener("click", (e) => {
+
+
+    function add_row(tabs) {
+
+      var tr = document.createElement("TR");
+      var td1 = document.createElement("TD");
+      var td2 = document.createElement("TD");
+      var in1 = document.createElement("INPUT");
+      var in2 = document.createElement("INPUT");
+      var td2t = document.createTextNode("-");
+
+      tr.appendChild(td1);
+      tr.appendChild(td2);
+      td1.appendChild(in1);
+      td2.appendChild(in2);
+      in2.appendChild(td2t);
+
+      tr.setAttribute("class", "bl-table-row");
+
+      in1.setAttribute("class", "site-name");
+      in1.setAttribute("type", "text");
+      in1.setAttribute("size", "25%");
+      in1.setAttribute("placeholder", "site name");
+
+      in2.setAttribute("class", "bl-table-delete-row");
+      in2.setAttribute("type", "button");
+      in2.setAttribute("style", "display: block; margin: 0 auto;");
+      in2.setAttribute("value", "-");
+
+      document.getElementById("bl-table").appendChild(tr);
+    }
+
+    function delete_row(tabs) {
+      var row = document.getElementsByClassName("bl-table-row")[0];
+      row.parentNode.removeChild(row);
+    }
+
+    function settings(tabs) {
+      window.alert("block-widget");
+      browser.tabs.sendMessage(tabs[0].id, {
+          command: "settings"
+        });
+    }
+
+    function stats(tabs) {
+      window.alert("unblock-widget");
+      browser.tabs.sendMessage(tabs[0].id, {
+          command: "stats"
+        });
+    }
+
+    /**
+     * Get the active tab
+     */
+
+    if (e.target.classList.contains("bl-table-add-row")) {
+      browser.tabs.query({active: true, currentWindow: true})
+        .then(add_row)
+    }
+    if (e.target.classList.contains("bl-table-delete-row")) {
+      browser.tabs.query({active: true, currentWindow: true})
+        .then(delete_row)
+    }
+  });
+}
+
+/**
+ * There was an error executing the script.
+ * Display the popup's error message, and hide the normal UI.
+ */
+function reportExecuteScriptError(error) {
+  document.querySelector("#popup-content").classList.add("hidden");
+  document.querySelector("#error-content").classList.remove("hidden");
+  console.error(`Failed to execute content script: ${error.message}`);
+}
+
+
+/**
+ * When the popup loads, inject a content script into the active tab,
+ * and add a click handler.
+ * If we couldn't inject the script, handle the error.
+ */
+browser.tabs.executeScript({file: "/content_scripts/block.js"})
+.then(listenForClicks)
+.catch(reportExecuteScriptError);
