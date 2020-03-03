@@ -1,4 +1,3 @@
-
 document.getElementById('dailyTime').addEventListener('change', function() {
 
   window.alert("2");
@@ -28,18 +27,11 @@ function listenForClicks() {
 
     function add_row(tabs) {
 
-      var tr = document.createElement("TR");
-      var td1 = document.createElement("TD");
-      var td2 = document.createElement("TD");
-      var in1 = document.createElement("INPUT");
-      var in2 = document.createElement("INPUT");
-      var td2t = document.createTextNode("-");
-
-      tr.appendChild(td1);
-      tr.appendChild(td2);
-      td1.appendChild(in1);
-      td2.appendChild(in2);
-      in2.appendChild(td2t);
+      let tr = document.createElement("TR");
+      let td1 = document.createElement("TD");
+      let td2 = document.createElement("TD");
+      let in1 = document.createElement("INPUT");
+      let in2 = document.createElement("INPUT");
 
       tr.setAttribute("class", "bl-table-row");
 
@@ -54,6 +46,10 @@ function listenForClicks() {
       in2.setAttribute("value", "-");
 
       document.getElementById("bl-table").appendChild(tr);
+      tr.appendChild(td1);
+      tr.appendChild(td2);
+      td1.appendChild(in1);
+      td2.appendChild(in2);
     }
 
     function delete_row(tabs) {
