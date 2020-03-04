@@ -14,13 +14,15 @@ function block() {
     window.stop();
 
     // Option 1: black out site
-    document.body.style.border = "10000px solid #2F4F4F";
-    window.alert("This page might be distracting...\nYou have __ minutes left");
-    document.body.style.border = "0px solid #2F4F4F";
+    // document.body.style.border = "10000px solid #2F4F4F";
+    // window.alert("This page might be distracting...\nYou have __ minutes left");
+    // document.body.style.border = "0px solid #2F4F4F";
 
     // Option 2: redirect to our own page with some message
-    // window.location.replace("https://ix.cs.uoregon.edu/~nzt/");
-
+    // TODO: redirect to Claire's stats page
+    localStorage["blockedSite"] = window.location.href;
+    window.location.replace("https://ix.cs.uoregon.edu/~nzt/");
+    
     // Option 3: Popup Message / Warning
     // window.alert("Nice Try Bud");
 }

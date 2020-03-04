@@ -24,6 +24,9 @@ document.getElementById('dailyTime').addEventListener('change', function() {
 function listenForClicks() {
   document.addEventListener("click", (e) => {
 
+    // TODO: blocklist -> text -> table
+
+    // TODO: table -> json -> blocklist
 
     function add_row(tabs) {
 
@@ -53,6 +56,7 @@ function listenForClicks() {
     }
 
     function delete_row(tabs) {
+      //  FIXME: delete THIS row
       var row = document.getElementsByClassName("bl-table-row")[0];
       row.parentNode.removeChild(row);
     }
