@@ -13,17 +13,8 @@ function compareURL(blocklist) {
 function block() {
     window.stop();
 
-    // Option 1: black out site
-    // document.body.style.border = "10000px solid #2F4F4F";
-    // window.alert("This page might be distracting...\nYou have __ minutes left");
-    // document.body.style.border = "0px solid #2F4F4F";
-
-    // Option 2: redirect to our own page with some message
-    localStorage["blockedSite"] = window.location.href;
-    window.location.replace("blocked.html");
-    
-    // Option 3: Popup Message / Warning
-    // window.alert("Nice Try Bud");
+    localStorage["blockedSite"] = window.location;
+    window.location = browser.extension.getURL("blocked.html");
 }
 
 var printStorageInfo = 0;
