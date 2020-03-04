@@ -27,7 +27,7 @@ function block() {
     // window.alert("Nice Try Bud");
 }
 
-var printStorageInfo = 1;
+var printStorageInfo = 0;
 
 /** Function: addWebsite()
  *      Adds a website to the block list. The current block list being used should be set equal
@@ -109,7 +109,7 @@ function removeWebsite(url, curBlockList, shouldSave=0) {
 }
 
 function saveWebsites() {
-    window.alert(JSON.stringify(blocklist));
+    // window.alert(JSON.stringify(blocklist));
     listAsString = JSON.stringify(blocklist);
 
     localStorage["websitesList"] = listAsString;
@@ -128,7 +128,7 @@ function saveWebsites() {
 function getWebsites() {
     
     var storedNames = localStorage["websitesList"];
-    window.alert(localStorage["websitesList"]);
+    // window.alert(localStorage["websitesList"]);
 
     if(storedNames != null) {
         // FIXME: fix if array is empty (all entries were removed)
