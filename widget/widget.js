@@ -1,4 +1,22 @@
-document.getElementById('dailyTime').addEventListener('change', function() {
+document.getElementById('dailyHour').addEventListener('change', function() {
+
+  window.alert("2");
+
+  var hour = document.getElementById('hours');
+  var sec = document.getElementById('seconds');
+
+  while( hour.firstChild ) {
+    hour.removeChild( hour.firstChild );
+  }
+  while( sec.firstChild ) {
+    sec.removeChild( sec.firstChild );
+  }
+  sec.appendChild( document.createTextNode('00') );
+  hour.appendChild( document.createTextNode(this.value) );
+
+});
+
+document.getElementById('dailyMin').addEventListener('change', function() {
 
   window.alert("2");
 
