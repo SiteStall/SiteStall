@@ -19,9 +19,8 @@ function block() {
     // document.body.style.border = "0px solid #2F4F4F";
 
     // Option 2: redirect to our own page with some message
-    // TODO: redirect to Claire's stats page
     localStorage["blockedSite"] = window.location.href;
-    window.location.replace("https://ix.cs.uoregon.edu/~nzt/");
+    window.location.replace("blocked.html");
     
     // Option 3: Popup Message / Warning
     // window.alert("Nice Try Bud");
