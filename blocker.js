@@ -122,7 +122,7 @@ function getWebsites() {
     var storedNames = localStorage["websiteList"];
     // window.alert(localStorage["websiteList"]);
 
-    if(storedNames != null || storedNames.length == 0) {
+    if(storedNames != null && storedNames.length > 0) {
         // FIXME: fix if array is empty (all entries were removed)
 
         storedNames = JSON.parse(storedNames);
