@@ -74,8 +74,7 @@ function listenForClicks() {
     }
 
     function delete_row(tabs) {
-      //  FIXME: delete THIS row
-      var row = document.getElementsByClassName("bl-table-row")[0];
+      let row = e.target.parentNode.parentNode;
       row.parentNode.removeChild(row);
     }
 
