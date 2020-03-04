@@ -1,6 +1,8 @@
 function compareURL(blocklist) {
     var loc = window.location.hostname;
 
+    // window.alert(blocklist);
+
     var blocklistLength = blocklist.length;
     for(let i = 0; i < blocklistLength; i++) {
         if(loc.localeCompare(blocklist[i].site) == 0) {
@@ -52,7 +54,7 @@ function addWebsite(url, curBlockList, checkDuplicates=0, shouldSave=0) {
     curBlockList.push(item);
 
     if (shouldSave) {
-        saveWebsites();
+        saveWebsites(curBlockList);
     }
     return curBlockList;
 }
@@ -89,7 +91,7 @@ function removeWebsite(url, curBlockList, shouldSave=0) {
             //window.alert("deleted " + deleted);
 
             if (shouldSave) {
-                saveWebsites();
+                saveWebsites(curBlockList);
             }
             return curBlockList;
         }
@@ -98,11 +100,11 @@ function removeWebsite(url, curBlockList, shouldSave=0) {
     return curBlockList;
 }
 
-function saveWebsites() {
+function saveWebsites(blocklist) {
     // window.alert(JSON.stringify(blocklist));
     listAsString = JSON.stringify(blocklist);
 
-    localStorage["websitesList"] = listAsString;
+    localStorage["websiteList"] = listAsString;
 
     var saveString = "Saving the following websites to local storage:\n";
     for (let i = 0; i < blocklist.length; i++) {
@@ -117,10 +119,10 @@ function saveWebsites() {
 
 function getWebsites() {
     
-    var storedNames = localStorage["websitesList"];
-    // window.alert(localStorage["websitesList"]);
+    var storedNames = localStorage["websiteList"];
+    // window.alert(localStorage["websiteList"]);
 
-    if(storedNames != null) {
+    if(storedNames != null || storedNames.length == 0) {
         // FIXME: fix if array is empty (all entries were removed)
 
         storedNames = JSON.parse(storedNames);
