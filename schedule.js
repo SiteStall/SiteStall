@@ -6,6 +6,10 @@ NOTES:
 
 		- Connect this to the blocking module, so functions are called each time.
 		- Deal with I/O to save threshold and time_left
+
+		- Can use local storage.
+
+		window.location.url()
 */
 
 
