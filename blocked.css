@@ -1,0 +1,44 @@
+#bpage {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    margin: 5% 25%;
+}
+
+body {
+    font-family: "Lucida Console", Monaco, monospace;
+}
+h1 {
+    margin: 10px;
+}
+
+img {
+    align-self: center;
+    width: initial;
+    margin: 10px;
+}
+
+#buttons {
+    margin-top: 20px;
+    /* margin-left: 10px; */
+    flex-direction: row;
+    /* font-size: 16px;
+    padding: 15px 32px;
+    width: 20px; */
+}
+
+.btn {
+    font-size: 16px;
+    padding: 15px 32px;
+    margin: 16px;
+    color:white;
+    background-color: darkgrey;
+}
+
+#leave:hover {
+    background-color:#449950;
+}
+
+#stay:hover {
+    background-color: #EC4141;
+}
