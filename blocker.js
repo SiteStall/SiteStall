@@ -182,19 +182,7 @@ function testAddRemove() {
     blocklist = removeWebsite('slither.io', blocklist);
 }
 
-
-// USE FOR LISTENING TO CHANGES IN STORAGE
-// 
-// browser.storage.onChanged.addListener(changeData => {
-//     // window.alert("changed: " + changeData.test.newValue);
-//     window.alert("BL[0] Changed: " + changeData.websiteList.newValue[0].site);    
-// });
-
-
-
-// localStorage.clear();
 var blocklist = getWebsites();  // had to chain this to block() compareURL to work correctly (blame how js promises work)
-
 // testAddRemove();
 // saveWebsites(blocklist);
 // compareURL(blocklist);
