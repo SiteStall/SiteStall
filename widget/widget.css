@@ -18,6 +18,14 @@ html, body {
   color: rgb(231, 109, 81);
 }
 
+.descrip {
+  font-size: 15px;
+  font-style: italic;
+  font-family: Impact, Charcoal, sans-serif;
+  text-align:center;
+  color: rgb(231, 109, 81);
+}
+
 .dl {
   font-size: 20px;
   font-family: Impact, Charcoal, sans-serif;
@@ -35,14 +43,14 @@ html, body {
   color: rgb(16, 47, 59);
 }
 
-.dh {
-  /* align-items: center; */
-}
-
 #dailyHour {
+  font-size: 13px;
+  font-family: Impact, Charcoal, sans-serif;
+  text-align:center;
+
   align-content:left;
   background-color: rgb(20, 30, 36);
-  color: rgb(255, 255, 255);
+  color: rgb(205, 205, 205);
 
   border: 1px solid #ccc;
     width: 120px;
@@ -50,9 +58,13 @@ html, body {
 }
 
 #dailyMin {
+  font-size: 13px;
+  font-family: Impact, Charcoal, sans-serif;
+  text-align:center;
+
   align-content:right;
   background-color: rgb(20, 30, 36);
-  color: rgb(255, 255, 255);
+  color: rgb(205, 205, 205);
 
   border: 1px solid #ccc;
     width: 120px;
@@ -61,17 +73,12 @@ html, body {
 
 .timeContain {
   color: rgb(235, 235, 235);
-  margin: 0 auto;
-  /* padding: 0.5rem; */
-  text-align: center;
+  /* align-content: center; */
+  display: inline-block;
 }
 
 .timeRow {
-  display: inline-block;
-  font-size: 12px;
-  list-style-type: none;
-  /* padding: 1em; */
-  text-transform: uppercase;
+  font-size: 15px;
 }
 
 .timeRow span {
@@ -82,55 +89,75 @@ html, body {
 }
 
 .hrs {
+  display: inline;
   font-size: 15px;
-	text-align: left;
+	/* text-align: left; */
   font-family: Impact, Charcoal, sans-serif;
-  color: rgb(231, 109, 81);
+  color: rgb(205, 205, 205);
 }
 .secs {
+  display: inline;
   font-size: 15px;
-	text-align: left;
+	/* text-align: center; */
   font-family: Impact, Charcoal, sans-serif;
-  color: rgb(231, 109, 81);
+  color: rgb(205, 205, 205);
 }
 .mins {
+  display: inline;
   font-size: 15px;
-	text-align: left;
+	/* text-align: right; */
   font-family: Impact, Charcoal, sans-serif;
-  color: rgb(231, 109, 81);
+  color: rgb(205, 205, 205);
 }
 
 #hours {
-  font-size: 15px;
-	text-align: left;
+  display: inline;
+  font-size: 20px;
+	/* text-align: left; */
   font-family: Impact, Charcoal, sans-serif;
   color: rgb(231, 109, 81);
 }
 
 #minutes {
-  font-size: 15px;
-	text-align: center;
+  display: inline;
+  font-size: 20px;
+	/* text-align: center; */
   font-family: Impact, Charcoal, sans-serif;
   color: rgb(231, 109, 81);
 }
 
 #seconds {
-  font-size: 15px;
-	text-align: right;
+  display: inline;
+  font-size: 20px;
+	/* text-align: right; */
   font-family: Impact, Charcoal, sans-serif;
   color: rgb(231, 109, 81);
 }
 
 .bl-container {
-  /* background-color: rgb(41, 42, 40); */
+  max-height: 150px;
+  overflow: auto;
 }
 
 .bl-table {
-  /* background-color: rgb(41, 42, 40); */
+}
+
+.tableHead {
+  font-size: 15px;
+  font-family: Impact, Charcoal, sans-serif;
+  text-align:center;
+  color: rgb(205, 205, 205);
 }
 
 .bl-table-add-row {
-  /* background-color: rgb(48, 154, 190); */
+  background-color: rgb(231, 109, 81);
+  border: none;
+  color: white;
+  padding: 0px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
 .bl-table-row {
@@ -138,9 +165,29 @@ html, body {
 }
 
 .bl-table-delete-row {
-  /* background-color: rgb(48, 154, 190); */
+  background-color: rgb(231, 109, 81);
+  border: none;
+  color: white;
+  padding: 0px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
 .site-name {
-  color: rgb(255, 255, 255);
+  /* color: rgb(255, 255, 255); */
+}
+
+a:link, a:visited {
+  background-color: rgb(52, 110, 124);
+  color: rgb(235, 235, 235);
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: rgb(231, 109, 81);
 }

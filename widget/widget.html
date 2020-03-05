@@ -11,16 +11,21 @@
 
   <div id="popup-content">
 
-    <h1 class = "title">SITE STALL</h1>
+    <div class = "title">SITE-STALL</div>
+    <div class = "descrip">an online distration tool</div>
+
+    <hr>
+    <br>
 
     <div class = "dl">Choose a daily limit</div>
+    <br>
 
-    <pre class="center">[select HOURS]          [select MINUTES]</pre>
+    <!-- <pre class="center">[select HOURS]          [select MINUTES]</pre> -->
 
     <div align = "center" class="dh">
 
       <select id="dailyHour">
-        <option value="-1">--hour--</option>
+        <option value="-1">--hours--</option>
         <option value="00">00</option>
         <option value="01">01</option>
         <option value="02">02</option>
@@ -35,8 +40,14 @@
       </select>
 
       <select id="dailyMin">
-        <option value="00">--minute--</option>
+        <option value="00">--minutes--</option>
         <option value="00">00</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="10">10</option>
         <option value="15">15</option>
         <option value="30">30</option>
         <option value="45">45</option>
@@ -45,24 +56,31 @@
     </div>
 
     <br>
+
+    <hr>
+
     <br>
 
-    <div class="timeContain">
+    <div class = "dl">Distract Time Remaining</div>
 
-      <div class = "dl">Distract Time Remaining:</div>
+    <div align = "center" class="dh">
 
-      <ul class="timeTable">
-        <li class="timeRow"><span id="hours"></span><div class="hrs">HOURS</div></li>
-        <li class="timeRow"><span id="minutes"></span><div class="mins">MIN'S</div></li>
-        <li class="timeRow"><span id="seconds"></span><div class="secs">SEC'S</div></li>
-      </ul>
+        <div class="hrs">HOURS</div>
+        <div id="hours"></div>
+
+        <div class="mins">MIN'S</div>
+        <div id="minutes"></div>
+
+        <div class="secs">SEC'S</div>
+        <div id="seconds"></div>
 
     </div>
 
-    <br>
+    <hr>
+
     <br>
 
-    <p>BlockList</p>
+    <div class = "dl">BLOCKLIST</div>
 
     <div class="bl-container">
 
@@ -70,7 +88,7 @@
 
         <tr>
 
-          <th>Site Name</th>
+          <th class = "tableHead">Site Names</th>
           <th>
             <input type="button" id="bl-table-add-row" class="bl-table-add-row" value="+" style="display: block; margin: 0 auto;">
           </th>
@@ -80,7 +98,7 @@
         <tr class="bl-table-row">
 
             <td>
-              <input type="text" class="site-name" name="site-name" placeholder="site name" size="25%">
+              <input type="text" class="site-name" name="site-name" placeholder="enter site name..." size="25%">
             </td>
 
             <td>
@@ -93,9 +111,11 @@
 
     </div>
 
-    <br>
+    <hr>
 
     <br>
+
+    <div class = "dl">STATISTICS</div>
 
     <a href="stats.html" target="targetframe">Stats</a>
 
