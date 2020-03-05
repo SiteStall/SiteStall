@@ -9,14 +9,10 @@
 		"48": "icons/pause.png"
 	},
 
-	"background" :{
-		"scripts": ["jquery-3.4.1.min.js"]
-	},
-
     "content_scripts": [
       	{
         	"matches": ["<all_urls>"],
-        	"js": ["blocker.js", "jquery-3.4.1.min.js"]
+        	"js": ["blocker.js"]
       	}
     ],
 
