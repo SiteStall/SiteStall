@@ -202,8 +202,16 @@ function listenForClicks() {
 		 * Returns:
 		 */
 		function delete_row(tabs) {
-			let row = e.target.parentNode.parentNode;
-			row.parentNode.removeChild(row);
+			let rows = document.getElementsByClassName("bl-table-row");
+			if(rows.length > 1){
+				let row = e.target.parentNode.parentNode;
+				row.parentNode.removeChild(row);
+			}
+			else {
+				let row = document.getElementsByClassName("site-name")[0];
+				row.setAttribute("value", "");
+				row.setAttribute("placeholder", "site name");
+			}
 		}
 
 		function settings(tabs) {
