@@ -197,8 +197,13 @@ var blocklist = getWebsites();  // had to chain this to block() compareURL to wo
 
 // testAddRemove();
 // saveWebsites(blocklist);
-
 // compareURL(blocklist);
+
+// add event listener for blocklist in storage.local... then update getWebsites?
+browser.storage.onChanged.addListener(changeData => {
+    // window.alert("BL[0] Changed: " + changeData.websiteList.newValue[0].site);    
+    getWebsites();
+});
 
 /* ============================================================================= */
 /* ================================scheduling=================================== */
