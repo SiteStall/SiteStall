@@ -1,11 +1,21 @@
+/**
+ * Compare the current website to those in the blocklist, blocking if necessary
+ * 
+ * Author: Noah Tigner, Lucas Hyatt
+ * 
+ * Args: blocklist, a list of objects of the form {site: , time: }
+ * 
+ * Returns:
+ */
 function compareURL(blocklist) {
     var loc = window.location.hostname;
 
-    // window.alert(blocklist);
+    // window.alert("(comp) bl: " + blocklist);
 
     var blocklistLength = blocklist.length;
     for(let i = 0; i < blocklistLength; i++) {
-        if(loc.localeCompare(blocklist[i].site) == 0) {
+        // window.alert(blocklist[i].site);
+        if(loc.localeCompare(blocklist[i].site) === 0) {
             // block();
             console.log("Blocklisted.");
             startTime(time_left);
@@ -18,14 +28,23 @@ function compareURL(blocklist) {
     }
 }
 
+/**
+ * Redirects websites in the blocklist to "blocked.html"
+ * 
+ * Author: Noah Tigner
+ * 
+ * Args: 
+ * 
+ * Returns:
+ */
 function block() {
     window.stop();
 
-    localStorage["blockedSite"] = window.location;
+    browser.storage.local.set({blockedSite: window.location});
     window.location = browser.extension.getURL("blocked.html");
 }
 
-var printStorageInfo = 0;
+var printStorageInfo = 1;
 
 /** Function: addWebsite()
  *      Adds a website to the block list. The current block list being used should be set equal
@@ -56,7 +75,7 @@ function addWebsite(url, curBlockList, checkDuplicates=0, shouldSave=0) {
         }
     }
 
-    let item = {site: url, time: 0};
+    var item = {site: url, time: 0};
     curBlockList.push(item);
 
     if (shouldSave) {
@@ -110,7 +129,7 @@ function saveWebsites(blocklist) {
     // window.alert(JSON.stringify(blocklist));
     listAsString = JSON.stringify(blocklist);
 
-    localStorage["websiteList"] = listAsString;
+    browser.storage.local.set({websiteList: listAsString});
 
     var saveString = "Saving the following websites to local storage:\n";
     for (let i = 0; i < blocklist.length; i++) {
@@ -123,40 +142,38 @@ function saveWebsites(blocklist) {
     }
 }
 
+/**
+ * Access the websites held in storage.local['websiteList'] (the blocklist)
+ * Parses and passes these URLs to compareURL
+ * 
+ * Author: Noah Tigner, Jimmy Lam
+ * 
+ * Args: 
+ * 
+ * Returns:
+ */
 function getWebsites() {
+
+    var storedNames = [];
     
-    var storedNames = localStorage["websiteList"];
-    // window.alert(localStorage["websiteList"]);
+    let prom = browser.storage.local.get("websiteList", data => {
+        if(data.websiteList) {
+            storedNames = data.websiteList;
 
-    if(storedNames != null && storedNames.length > 0) {
-        // FIXME: fix if array is empty (all entries were removed)
-
-        storedNames = JSON.parse(storedNames);
-
-        var websitesRead = "The following websites were retrieved: \n";
-        for (let i = 0; i < storedNames.length; i++) {
-            websitesRead = websitesRead.concat("\tname: ", storedNames[i].site, "\ttime: ", storedNames[i].time, '\n');
+            if(storedNames.length > 0) {
+                var websitesRead = "The following websites were retrieved: \n";
+                for (let i = 0; i < storedNames.length; i++) {
+                    websitesRead = websitesRead.concat("\tname: ", storedNames[i].site, "\ttime: ", storedNames[i].time, '\n');
+                }
+        
+                if (printStorageInfo) {  // change to 0 to not print this
+                    window.alert(websitesRead);
+                    console.log(websitesRead);
+                }
+                compareURL(storedNames)
+            }
         }
-
-        if (printStorageInfo) {  // change to 0 to not print this
-            window.alert(websitesRead);
-            console.log(websitesRead);
-        }
-
-        return storedNames;
-    }
-    else {
-        // TODO: create empty blocklist object if "websiteList" doesnt exist
-        // TODO: right now I'm just creating a default below
-        window.alert("No blocklist stored\n(using temporary default for now)");
-        var tempToBeBlocked = ["www.facebook.com", "www.youtube.com", "www.instagram.com", "slither.io"];
-        var tempBlocklist = [];
-        for (let i = 0; i < tempToBeBlocked.length; i++) {
-            tempBlocklist = addWebsite(tempToBeBlocked[i], tempBlocklist);
-        }
-        // var jsonString= JSON.stringify(blocklist);
-        return tempBlocklist;
-    }
+    });
 }
 
 function testAddRemove() {
@@ -165,11 +182,16 @@ function testAddRemove() {
     blocklist = removeWebsite('slither.io', blocklist);
 }
 
-var blocklist = getWebsites();
-testAddRemove();
-saveWebsites(blocklist);
+var blocklist = getWebsites();  // had to chain this to block() compareURL to work correctly (blame how js promises work)
+// testAddRemove();
+// saveWebsites(blocklist);
+// compareURL(blocklist);
 
-compareURL(blocklist);
+// add event listener for blocklist in storage.local... then update getWebsites?
+browser.storage.onChanged.addListener(changeData => {
+    // window.alert("BL[0] Changed: " + changeData.websiteList.newValue[0].site);    
+    getWebsites();
+});
 
 /* ============================================================================= */
 /* ================================scheduling=================================== */

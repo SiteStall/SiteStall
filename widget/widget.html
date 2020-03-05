@@ -7,55 +7,77 @@
     <link rel="stylesheet" href="widget.css"/>
   </head>
 
-<body>
+<body class="widget">
 
   <div id="popup-content">
 
-    ~Site Stall~
-    <br>
-    <br>
-    Choose a daily limit
-    <br>
-    (hours : minutes)
-    <br>
-    <label for="dailyHour"></label>
+    <div class = "title">SITE-STALL</div>
+    <div class = "descrip">an online distraction tool</div>
 
-    <select id="dailyHour">
-      <option value="-1">--select--</option>
-      <option value="00">00</option>
-      <option value="01">01</option>
-      <option value="02">02</option>
-      <option value="03">03</option>
-      <option value="04">04</option>
-      <option value="05">05</option>
-      <option value="06">06</option>
-      <option value="07">07</option>
-      <option value="08">08</option>
-      <option value="09">09</option>
-      <option value="10">10</option>
-    </select>
+    <hr>
+    <br>
 
-    :
+    <div class = "dl">Choose a Daily Limit</div>
+    <br>
 
-    <label for="dailyMin"></label>
+    <!-- <pre class="center">[select HOURS]          [select MINUTES]</pre> -->
 
-    <select id="dailyMin">
-      <option value="00">--select--</option>
-      <option value="00">00</option>
-      <option value="15">15</option>
-      <option value="30">30</option>
-      <option value="45">45</option>
-    </select>
+    <div align = "center" class="dh">
+
+      <select id="dailyHour">
+        <option value="-1">--hours--</option>
+        <option value="00">00</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
+        <option value="10">10</option>
+      </select>
+
+      <select id="dailyMin">
+        <option value="00">--minutes--</option>
+        <option value="00">00</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="30">30</option>
+        <option value="45">45</option>
+      </select>
+
+    </div>
 
     <br>
+    <hr>
     <br>
-    Distract Time Remaining:
-    <br>
-    <span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
-    <br>
-    <br>
-    BlockList
 
+    <div class = "dl">Distract Time Remaining</div>
+
+    <div align = "center" class="dh">
+
+        <div class="hrs">HRS</div>
+        <div id="hours"></div>
+
+        <div class="mins">MINS</div>
+        <div id="minutes"></div>
+
+        <div class="secs">SECS</div>
+        <div id="seconds"></div>
+
+    </div>
+
+    <hr>
+    <br>
+
+    <div class = "dl">BLOCKLIST</div>
 
     <div class="bl-container">
 
@@ -63,7 +85,7 @@
 
         <tr>
 
-          <th>Site Name</th>
+          <th class = "tableHead">Site Names</th>
           <th>
             <input type="button" id="bl-table-add-row" class="bl-table-add-row" value="+" style="display: block; margin: 0 auto;">
           </th>
@@ -73,7 +95,7 @@
         <tr class="bl-table-row">
 
             <td>
-              <input type="text" class="site-name" name="site-name" placeholder="site name" size="25%">
+              <input type="text" class="site-name" name="site-name" placeholder="enter site name..." size="25%">
             </td>
 
             <td>
@@ -85,12 +107,15 @@
       </table>
 
     </div>
+    <button class="save" id="save" type="button">save blocklist</button>
 
+    <hr>
     <br>
 
-    <br>
+    <div class = "dl"><a href="stats.html" target="targetframe">STATISTICS</a></div>
 
-    <a href="stats.html" target="targetframe">Stats</a>
+    <br>
+    <hr>
 
   </div>
 
