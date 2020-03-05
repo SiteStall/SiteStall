@@ -81,27 +81,15 @@ function listenForClicks() {
 
 		let parentDiv =  document.getElementsByClassName("bl-table-row")[0].parentNode;
 		let sp2 = document.getElementsByClassName("bl-table-row")[0];
-		// sp2 = sp2[0] || undefined;
 		parentDiv.insertBefore(tr, sp2);
 		// document.getElementById("bl-table").insertBefore(tr, document.getElementsByClassName("bl-table-row")[0]);
-
 		// document.getElementById("bl-table").appendChild(tr);
+
 		tr.appendChild(td1);
 		tr.appendChild(td2);
 		td1.appendChild(in1);
 		td2.appendChild(in2);
 	}
-
-	// function clearTable(tabs) {
-	// 	var rows = document.getElementsByClassName("bl-table-row");
-
-	// 	// while(rows[0]) {
-	// 	// 	rows[0].parentNode.removeChild(rows[0]);
-	// 	// }​
-	// 	// var rows = 
-	// 	// window.alert("here");
-	// }
-
 
 	/**
 	 * when the table is changed, use its contents to update the blocklist in storage
@@ -124,41 +112,26 @@ function listenForClicks() {
 			}
 
 			browser.storage.local.set({websiteList: bl});
-
-			// for(let tab of tabs) {
-			// 	browser.tabs.sendMessage(
-			// 		tab.id,
-			// 		{
-			// 			command: "tableToStorage",
-			// 			bl: bl
-			// 		}
-			// 	);
-			// }
 		}
 		else {
 			browser.storage.local.remove(websiteList);
 		}
 	}
 
-	// // TODO: blocklist -> text -> table
+	/**
+	 * when the widget load, load the blocklist into the table, creating and filling necessary rows
+	 * 
+	 * Author: Noah Tigner
+	 * 
+	 * Args: 
+	 * 
+	 * Returns:
+	 */
 	function storageToTable(tabs) {
-		// 	// var storedNames = localStorage["websiteList"];
-			// window.alert("1");
 
-		// let rows = document.getElementsByClassName("bl-table-row");
-		// rows.parentNode.removeChild(rows);
-
-		// window.alert("3");
-		let copy = [];
 		var storedNames = [];
 		browser.storage.local.get("websiteList", data => {
 			if(data.websiteList) {
-				// FIXME: fix if array is empty (all entries were removed)
-
-				// window.alert(websiteList);
-				// storedNames = JSON.parse(websiteList);
-
-				
 
 				storedNames = data.websiteList;
 				if(storedNames.length > 0) {
@@ -166,17 +139,8 @@ function listenForClicks() {
 						// window.alert(storedNames[i].site);
 						add_row(storedNames[i].site);
 
-
-						// i = 0 -> [1]
-						// i = 1 -> [2]
-
 						let row = document.getElementsByClassName("site-name")[1];
 						row.setAttribute("value", storedNames[i].site);
-						
-
-						// const newStr = Object.assign("", storedNames[i].site);
-						// copy.push(newStr);
-						
 					}
 				}
 			}
@@ -184,13 +148,10 @@ function listenForClicks() {
 	}
 
 	document.addEventListener("focus", (e) => {
-		// clearTable();
 		storageToTable();
 	});
 
 	document.addEventListener("click", (e) => {
-
-
 
 		/**
 		 * deletes a specific row from the table
@@ -239,11 +200,9 @@ function listenForClicks() {
 		if (e.target.classList.contains("bl-table-delete-row")) {
 			browser.tabs.query({active: true, currentWindow: true})
 				.then(delete_row)
-				// .then(tableToStorage)
 		}
 		if (e.target.classList.contains("save")) {
 			browser.tabs.query({active: true, currentWindow: true})
-				// .then(tableToStorage)
 				.then(tableToStorage)
 		}
 	});

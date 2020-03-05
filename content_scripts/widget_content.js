@@ -1,17 +1,3 @@
-// browser.runtime.onMessage.addListener(message => {
-// 	if(message.command === "tableToStorage") {
-// 		if(message.bl.length > 0) {
-// 			window.alert("Blocklist of size: " + message.bl.length);
-// 			browser.storage.local.set({websiteList: message.bl});
-// 		}
-// 		else {
-// 			browser.storage.local.remove(websiteList);
-// 		}
-// 		return Promise.resolve();
-// 	}
-// });
-
-
 (function() {
 	/**
 	 * Check and set a global guard variable.

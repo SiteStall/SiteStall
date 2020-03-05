@@ -1,3 +1,12 @@
+/**
+ * Compare the current website to those in the blocklist, blocking if necessary
+ * 
+ * Author: Noah Tigner, Lucas Hyatt
+ * 
+ * Args: blocklist, a list of objects of the form {site: , time: }
+ * 
+ * Returns:
+ */
 function compareURL(blocklist) {
     var loc = window.location.hostname;
 
@@ -19,6 +28,15 @@ function compareURL(blocklist) {
     }
 }
 
+/**
+ * Redirects websites in the blocklist to "blocked.html"
+ * 
+ * Author: Noah Tigner
+ * 
+ * Args: 
+ * 
+ * Returns:
+ */
 function block() {
     window.stop();
 
@@ -124,53 +142,38 @@ function saveWebsites(blocklist) {
     }
 }
 
+/**
+ * Access the websites held in storage.local['websiteList'] (the blocklist)
+ * Parses and passes these URLs to compareURL
+ * 
+ * Author: Noah Tigner, Jimmy Lam
+ * 
+ * Args: 
+ * 
+ * Returns:
+ */
 function getWebsites() {
-    window.alert("here");
-    
-    var storedNames = [];
-    var copy = [];
-    browser.storage.local.get("websiteList", data => {
-        if(data.websiteList) {
-            // FIXME: fix if array is empty (all entries were removed)
 
-            // window.alert(websiteList);
-            // storedNames = JSON.parse(websiteList);
+    var storedNames = [];
+    
+    let prom = browser.storage.local.get("websiteList", data => {
+        if(data.websiteList) {
             storedNames = data.websiteList;
+
+            if(storedNames.length > 0) {
+                var websitesRead = "The following websites were retrieved: \n";
+                for (let i = 0; i < storedNames.length; i++) {
+                    websitesRead = websitesRead.concat("\tname: ", storedNames[i].site, "\ttime: ", storedNames[i].time, '\n');
+                }
+        
+                if (printStorageInfo) {  // change to 0 to not print this
+                    window.alert(websitesRead);
+                    console.log(websitesRead);
+                }
+                compareURL(storedNames)
+            }
         }
     });
-    let t = storedNames;
-    window.alert("storedNames: " + storedNames);
-    window.alert("storedNames: " + storedNames);
-    window.alert("storedNames: " + storedNames);
-    window.alert("storedNames: " + storedNames[0]);
-    window.alert("storedNames: " + storedNames[0].site);
-
-    if(storedNames.length > 0) {
-        var websitesRead = "The following websites were retrieved: \n";
-        for (let i = 0; i < storedNames.length; i++) {
-            websitesRead = websitesRead.concat("\tname: ", storedNames[i].site, "\ttime: ", storedNames[i].time, '\n');
-        }
-
-        if (printStorageInfo) {  // change to 0 to not print this
-            window.alert(websitesRead);
-            console.log(websitesRead);
-        }
-        return storedNames;
-    }
-
-    else {
-        // TODO: create empty blocklist object if "websiteList" doesnt exist
-        // TODO: right now I'm just creating a default below
-        window.alert("No blocklist stored\n(using temporary default for now)");
-        var tempToBeBlocked = ["www.facebook.com", "www.youtube.com", "www.instagram.com", "slither.io"];
-        var tempBlocklist = [];
-        for (let i = 0; i < tempToBeBlocked.length; i++) {
-            tempBlocklist = addWebsite(tempToBeBlocked[i], tempBlocklist);
-        }
-        // var jsonString= JSON.stringify(blocklist);
-        window.alert("in get: " + tempBlocklist);
-        return tempBlocklist;
-    }
 }
 
 function testAddRemove() {
@@ -179,13 +182,6 @@ function testAddRemove() {
     blocklist = removeWebsite('slither.io', blocklist);
 }
 
-function onGot(item) {
-    window.alert("Got: " + item);
-}
-
-function onError(error) {
-    window.alert("Error: " + error);
-}
 
 // USE FOR LISTENING TO CHANGES IN STORAGE
 // 
@@ -197,12 +193,12 @@ function onError(error) {
 
 
 // localStorage.clear();
-var blocklist = getWebsites();
-// var blocklist = [{site: "www.facebook.com", time: 0}, {site: "www.youtube.com", time: 0}];
+var blocklist = getWebsites();  // had to chain this to block() compareURL to work correctly (blame how js promises work)
+
 // testAddRemove();
 // saveWebsites(blocklist);
 
-compareURL(blocklist);
+// compareURL(blocklist);
 
 /* ============================================================================= */
 /* ================================scheduling=================================== */
