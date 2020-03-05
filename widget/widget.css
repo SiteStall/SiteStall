@@ -156,7 +156,10 @@ html, body {
 
   background-color: rgb(231, 109, 81);
   border: none;
-  color: white;
+
+  /* color: white; */
+  color: rgb(35, 35, 35);
+
   padding: 0px 26px;
   text-align: center;
   text-decoration: none;
@@ -166,7 +169,10 @@ html, body {
 
 .bl-table-add-row:hover {
   background-color: rgb(201, 79, 51);
-  color: rgb(35, 35, 35);
+
+  color: white;
+  /* color: rgb(35, 35, 35); */
+
   border: none;
   padding: 0px 26px;
   text-align: center;
@@ -184,7 +190,10 @@ html, body {
 
   background-color: rgb(231, 109, 81);
   border: none;
-  color: white;
+
+  /* color: white; */
+  color: rgb(35, 35, 35);
+
   padding: 0px 28px;
   text-align: center;
   text-decoration: none;
@@ -194,7 +203,10 @@ html, body {
 
 .bl-table-delete-row:hover {
   background-color: rgb(201, 79, 51);
-  color: rgb(35, 35, 35);
+
+  /* color: rgb(35, 35, 35); */
+  color: white;
+
   border: none;
   padding: 0px 26px;
   text-align: center;
@@ -208,13 +220,32 @@ html, body {
 }
 
 .save {
+  transition-duration: 0.3s;
+
   width: 100%;
   border: none;
   text-decoration: none;
   font-size: 15px;
   font-family: Impact, Charcoal, sans-serif;
   text-align:center;
-  background-color: rgb(52, 110, 124);
+  background-color: rgb(231, 109, 81);
+
+  /* color: rgb(235, 235, 235); */
+
+  color: rgb(35, 35, 35);
+}
+
+.save:hover {
+  width: 100%;
+  border: none;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: Impact, Charcoal, sans-serif;
+  text-align:center;
+  background-color: rgb(201, 79, 51);
+
+  /* color: rgb(35, 35, 35); */
+
   color: rgb(235, 235, 235);
 }
 
@@ -222,6 +253,8 @@ a:link, a:visited {
   /* background-color: rgb(52, 110, 124);
   color: rgb(235, 235, 235); */
   background-color: rgb(231, 109, 81);
+
+  /* color: rgb(235, 235, 235); */
   color: rgb(35, 35, 35);
 
   transition-duration: 0.3s;
@@ -235,6 +268,9 @@ a:hover, a:active {
   /* background-color: rgb(231, 109, 81);
   color: rgb(35, 35, 35); */
 
-  background-color: rgb(52, 110, 124);
+  background-color: rgb(201, 79, 51);
+
+  /* color: rgb(35, 35, 35); */
+
   color: rgb(235, 235, 235);
 }
