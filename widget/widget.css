@@ -95,6 +95,7 @@ html, body {
   font-family: Impact, Charcoal, sans-serif;
   color: rgb(205, 205, 205);
 }
+
 .secs {
   display: inline;
   font-size: 15px;
@@ -102,6 +103,7 @@ html, body {
   font-family: Impact, Charcoal, sans-serif;
   color: rgb(205, 205, 205);
 }
+
 .mins {
   display: inline;
   font-size: 15px;
@@ -160,6 +162,17 @@ html, body {
   font-size: 16px;
 }
 
+.bl-table-add-row:hover {
+  background-color: rgb(201, 79, 51);
+  color: rgb(35, 35, 35);
+  border: none;
+  padding: 0px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
 .bl-table-row {
   /* background-color: rgb(41, 42, 40); */
 }
@@ -175,6 +188,17 @@ html, body {
   font-size: 16px;
 }
 
+.bl-table-delete-row:hover {
+  background-color: rgb(201, 79, 51);
+  color: rgb(35, 35, 35);
+  border: none;
+  padding: 0px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
 .site-name {
   /* color: rgb(255, 255, 255); */
 }
@@ -182,12 +206,12 @@ html, body {
 a:link, a:visited {
   background-color: rgb(52, 110, 124);
   color: rgb(235, 235, 235);
-  padding: 14px 25px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  padding: 0px 30px;
 }
 
 a:hover, a:active {
   background-color: rgb(231, 109, 81);
+  color: rgb(35, 35, 35);
 }
