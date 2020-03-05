@@ -123,15 +123,20 @@ function listenForClicks() {
 				}
 			}
 
-			for(let tab of tabs) {
-				browser.tabs.sendMessage(
-					tab.id,
-					{
-						command: "tableToStorage",
-						bl: bl
-					}
-				);
-			}
+			browser.storage.local.set({websiteList: bl});
+
+			// for(let tab of tabs) {
+			// 	browser.tabs.sendMessage(
+			// 		tab.id,
+			// 		{
+			// 			command: "tableToStorage",
+			// 			bl: bl
+			// 		}
+			// 	);
+			// }
+		}
+		else {
+			browser.storage.local.remove(websiteList);
 		}
 	}
 
