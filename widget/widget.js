@@ -105,7 +105,7 @@ function listenForClicks() {
 		if(rows.length > 0) {
 			var bl = [];
 			for(let i = 0; i < rows.length; i++) {
-				if(rows[i].value.length > 0) {
+				if(rows[i].value.length > 0 && !bl.includes(rows[i].value)) {
 					// window.alert(rows[i].value);
 					bl.push({site: rows[i].value, time: 0});
 				}
@@ -130,17 +130,32 @@ function listenForClicks() {
 	function storageToTable(tabs) {
 
 		var storedNames = [];
+		var unique = [];
 		browser.storage.local.get("websiteList", data => {
 			if(data.websiteList) {
-
 				storedNames = data.websiteList;
-				if(storedNames.length > 0) {
-					for (let i = 0; i < storedNames.length; i++) {
+
+				// Get unique objects
+				const map = new Map();
+				for(const item of storedNames) {
+					if(!map.has(item.site)) {
+						map.set(item.site, true);
+						unique.push({
+							site: item.site,
+							time: item.time
+						});
+					}
+				}
+
+				if(unique.length > 0) {
+					for (let i = 0; i < unique.length; i++) {
 						// window.alert(storedNames[i].site);
-						add_row(storedNames[i].site);
+						// if(!bl.includes(storedNames[i].site)) {
+						add_row(unique[i].site);
 
 						let row = document.getElementsByClassName("site-name")[1];
-						row.setAttribute("value", storedNames[i].site);
+						row.setAttribute("value", unique[i].site);
+						// }
 					}
 				}
 			}
