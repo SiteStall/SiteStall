@@ -1,11 +1,19 @@
 function compareURL(blocklist) {
     var loc = window.location.hostname;
 
+    // window.alert(blocklist);
+
     var blocklistLength = blocklist.length;
     for(let i = 0; i < blocklistLength; i++) {
         if(loc.localeCompare(blocklist[i].site) == 0) {
-            block();
+            // block();
+            console.log("Blocklisted.");
+            startTime(time_left);
             break;
+        }
+        else{
+            stopTime();
+            console.log("Not blocklisted.");
         }
     }
 }
@@ -13,17 +21,8 @@ function compareURL(blocklist) {
 function block() {
     window.stop();
 
-    // Option 1: black out site
-    // document.body.style.border = "10000px solid #2F4F4F";
-    // window.alert("This page might be distracting...\nYou have __ minutes left");
-    // document.body.style.border = "0px solid #2F4F4F";
-
-    // Option 2: redirect to our own page with some message
-    localStorage["blockedSite"] = window.location.href;
-    window.location.replace("blocked.html");
-    
-    // Option 3: Popup Message / Warning
-    // window.alert("Nice Try Bud");
+    localStorage["blockedSite"] = window.location;
+    window.location = browser.extension.getURL("blocked.html");
 }
 
 var printStorageInfo = 0;
@@ -61,7 +60,7 @@ function addWebsite(url, curBlockList, checkDuplicates=0, shouldSave=0) {
     curBlockList.push(item);
 
     if (shouldSave) {
-        saveWebsites();
+        saveWebsites(curBlockList);
     }
     return curBlockList;
 }
@@ -98,7 +97,7 @@ function removeWebsite(url, curBlockList, shouldSave=0) {
             //window.alert("deleted " + deleted);
 
             if (shouldSave) {
-                saveWebsites();
+                saveWebsites(curBlockList);
             }
             return curBlockList;
         }
@@ -107,11 +106,11 @@ function removeWebsite(url, curBlockList, shouldSave=0) {
     return curBlockList;
 }
 
-function saveWebsites() {
+function saveWebsites(blocklist) {
     // window.alert(JSON.stringify(blocklist));
     listAsString = JSON.stringify(blocklist);
 
-    localStorage["websitesList"] = listAsString;
+    localStorage["websiteList"] = listAsString;
 
     var saveString = "Saving the following websites to local storage:\n";
     for (let i = 0; i < blocklist.length; i++) {
@@ -126,10 +125,10 @@ function saveWebsites() {
 
 function getWebsites() {
     
-    var storedNames = localStorage["websitesList"];
-    // window.alert(localStorage["websitesList"]);
+    var storedNames = localStorage["websiteList"];
+    // window.alert(localStorage["websiteList"]);
 
-    if(storedNames != null) {
+    if(storedNames != null && storedNames.length > 0) {
         // FIXME: fix if array is empty (all entries were removed)
 
         storedNames = JSON.parse(storedNames);
@@ -171,3 +170,93 @@ testAddRemove();
 saveWebsites(blocklist);
 
 compareURL(blocklist);
+
+/* ============================================================================= */
+/* ================================scheduling=================================== */
+/* ============================================================================= */
+
+/*
+NOTES:
+    - Will need to write some variables (likely threshold and time_left) to storage in a file
+
+    TODO: 
+
+        - Connect this to the blocking module, so functions are called each time.
+        - Deal with I/O to save threshold, time_left, current_date
+            - Can use local storage.
+
+        Check current tab: window.location.url()
+*/
+
+
+// Global variables
+// These should be set (read from file), when the program is started. 
+
+var threshold = .1; //Global threshold variable (amount available each day, in minutes)
+var time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
+var timeout; 
+var interval; 
+
+function MinutesToMilliseconds(time){
+    /*
+        Convert a given time in minutes to milliseconds (helper for setTimeout)
+    */
+    return time*(60000)
+}
+
+function timeUp(){
+    /*
+        Called if user is on blocklisted site and runs out of time.
+    */
+    console.log("Start blocking!")
+    stopTime();
+    block();
+
+    //Write the new time to storage file.
+}
+
+function adjustTimeLeft(){ 
+    /*
+        Function which decrements the time left every second.
+    */
+    time_left -= 1000
+    console.log("Time left is now:", time_left)
+
+    if(time_left < 0){
+        // stopTime()
+        // console.log("Left the blocklisted site, saving time_left as:", time_left)
+        timeUp()
+    }
+}
+
+function startTime(time_before_blocking){
+    /*
+        Function which is called when a user visits a blocklisted site,
+        begins to track time:
+    */
+
+    //Triggered when they visit a blockslisted site.
+    console.log("Starting timer.")
+    timeout = setTimeout(function(){timeUp}, time_before_blocking);
+    interval = setInterval(adjustTimeLeft, 1000);   
+}
+
+function stopTime(){
+    /*
+        Function which is called when a user visits a non-blocklisted site
+    */
+    clearTimeout(timeout);
+    clearInterval(interval);
+
+    //Write the new time to storage file.
+}
+
+// startTime(time_left)
+// stopTime()
+
+/* ============================================================================= */
+/* ============================================================================= */
+/* ============================================================================= */
+
+
+

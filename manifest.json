@@ -38,6 +38,8 @@
 		"default_icon": "icons/pause.png",
 		"default_title": "SiteStall",
 		"default_popup": "widget/widget.html"
-    }
+	},
+	
+	"web_accessible_resources": ["blocked.html"]
 
 }
