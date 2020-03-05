@@ -10,7 +10,7 @@
 function compareURL(blocklist) {
     var loc = window.location.hostname;
 
-    window.alert("(comp) bl: " + blocklist);
+    // window.alert("(comp) bl: " + blocklist);
 
     var blocklistLength = blocklist.length;
     for(let i = 0; i < blocklistLength; i++) {
