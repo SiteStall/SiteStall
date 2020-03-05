@@ -192,8 +192,15 @@ NOTES:
 // Global variables
 // These should be set (read from file), when the program is started. 
 
-var threshold = .1; //Global threshold variable (amount available each day, in minutes)
+var threshold = 1; //Global threshold variable (amount available each day, in minutes)
+localStorage["threshold"] = threshold;
+if(localStorage["time_left"] == NaN){
+    localStorage["time_left"] = threshold;
+}
+
 var time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
+time_left = localStorage["time_left"];
+
 var timeout; 
 var interval; 
 
@@ -211,8 +218,6 @@ function timeUp(){
     console.log("Start blocking!")
     stopTime();
     block();
-
-    //Write the new time to storage file.
 }
 
 function adjustTimeLeft(){ 
@@ -223,8 +228,6 @@ function adjustTimeLeft(){
     console.log("Time left is now:", time_left)
 
     if(time_left < 0){
-        // stopTime()
-        // console.log("Left the blocklisted site, saving time_left as:", time_left)
         timeUp()
     }
 }
@@ -249,6 +252,9 @@ function stopTime(){
     clearInterval(interval);
 
     //Write the new time to storage file.
+    localStorage["time_left"] = time_left;
+    print(localStorage["time_left"])
+
 }
 
 // startTime(time_left)
