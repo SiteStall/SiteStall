@@ -102,13 +102,20 @@ function listenForClicks() {
 	 */
 	function tableToStorage(tabs) {
 		var rows = document.getElementsByClassName("site-name");
+
 		if(rows.length > 0) {
-			var bl = [];
+
+			// get unique site names
+			var unique = [];
 			for(let i = 0; i < rows.length; i++) {
-				if(rows[i].value.length > 0 && !bl.includes(rows[i].value)) {
-					// window.alert(rows[i].value);
-					bl.push({site: rows[i].value, time: 0});
+				if(rows[i].value.length > 0 && !unique.includes(rows[i].value)) {
+					unique.push(rows[i].value)
 				}
+			}
+		
+			var bl = [];
+			for(let i = 0; i < unique.length; i++) {
+				bl.push({site: unique[i], time: 0});
 			}
 
 			browser.storage.local.set({websiteList: bl});
