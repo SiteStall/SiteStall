@@ -1,26 +1,146 @@
 html, body {
   width: 250px;
+  background-color: rgb(20, 30, 36);
 }
 
 .hidden {
   display: none;
 }
 
-.button {
+#popup-content {
+  background-color: rgb(20, 30, 36);
 }
 
-.add:hover {
-  background-color: #CFF2F2;
+.title {
+  font-size: 30px;
+  font-family: Impact, Charcoal, sans-serif;
+  text-align:center;
+  color: rgb(231, 109, 81);
 }
 
-.remove:hover {
-  background-color: #CFF2F2;
+.dl {
+  font-size: 20px;
+  font-family: Impact, Charcoal, sans-serif;
+  text-align:center;
+  background-color: rgb(52, 110, 124);
+  color: rgb(235, 235, 235);
 }
 
-.add {
-  background-color: #E5F2F2;
+.center {
+  font-size: 15px;
+	text-align: center;
+  font-family: Impact, Charcoal, sans-serif;
+  font-weight: normal;
+  background-color: rgb(52, 110, 124);
+  color: rgb(16, 47, 59);
 }
 
-.remove {
-  background-color: #FBFBC9;
+.dh {
+  /* align-items: center; */
+}
+
+#dailyHour {
+  align-content:left;
+  background-color: rgb(20, 30, 36);
+  color: rgb(255, 255, 255);
+
+  border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+}
+
+#dailyMin {
+  align-content:right;
+  background-color: rgb(20, 30, 36);
+  color: rgb(255, 255, 255);
+
+  border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+}
+
+.timeContain {
+  color: rgb(235, 235, 235);
+  margin: 0 auto;
+  /* padding: 0.5rem; */
+  text-align: center;
+}
+
+.timeRow {
+  display: inline-block;
+  font-size: 12px;
+  list-style-type: none;
+  /* padding: 1em; */
+  text-transform: uppercase;
+}
+
+.timeRow span {
+  display: block;
+  font-size: 15px;
+  font-family: Impact, Charcoal, sans-serif;
+  color: rgb(0, 0, 0);
+}
+
+.hrs {
+  font-size: 15px;
+	text-align: left;
+  font-family: Impact, Charcoal, sans-serif;
+  color: rgb(231, 109, 81);
+}
+.secs {
+  font-size: 15px;
+	text-align: left;
+  font-family: Impact, Charcoal, sans-serif;
+  color: rgb(231, 109, 81);
+}
+.mins {
+  font-size: 15px;
+	text-align: left;
+  font-family: Impact, Charcoal, sans-serif;
+  color: rgb(231, 109, 81);
+}
+
+#hours {
+  font-size: 15px;
+	text-align: left;
+  font-family: Impact, Charcoal, sans-serif;
+  color: rgb(231, 109, 81);
+}
+
+#minutes {
+  font-size: 15px;
+	text-align: center;
+  font-family: Impact, Charcoal, sans-serif;
+  color: rgb(231, 109, 81);
+}
+
+#seconds {
+  font-size: 15px;
+	text-align: right;
+  font-family: Impact, Charcoal, sans-serif;
+  color: rgb(231, 109, 81);
+}
+
+.bl-container {
+  /* background-color: rgb(41, 42, 40); */
+}
+
+.bl-table {
+  /* background-color: rgb(41, 42, 40); */
+}
+
+.bl-table-add-row {
+  /* background-color: rgb(48, 154, 190); */
+}
+
+.bl-table-row {
+  /* background-color: rgb(41, 42, 40); */
+}
+
+.bl-table-delete-row {
+  /* background-color: rgb(48, 154, 190); */
+}
+
+.site-name {
+  color: rgb(255, 255, 255);
 }

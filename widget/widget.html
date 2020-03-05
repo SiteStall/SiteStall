@@ -11,51 +11,58 @@
 
   <div id="popup-content">
 
-    ~Site Stall~
-    <br>
-    <br>
-    Choose a daily limit
-    <br>
-    (hours : minutes)
-    <br>
-    <label for="dailyHour"></label>
+    <h1 class = "title">SITE STALL</h1>
 
-    <select id="dailyHour">
-      <option value="-1">--select--</option>
-      <option value="00">00</option>
-      <option value="01">01</option>
-      <option value="02">02</option>
-      <option value="03">03</option>
-      <option value="04">04</option>
-      <option value="05">05</option>
-      <option value="06">06</option>
-      <option value="07">07</option>
-      <option value="08">08</option>
-      <option value="09">09</option>
-      <option value="10">10</option>
-    </select>
+    <div class = "dl">Choose a daily limit</div>
 
-    :
+    <pre class="center">[select HOURS]          [select MINUTES]</pre>
 
-    <label for="dailyMin"></label>
+    <div align = "center" class="dh">
 
-    <select id="dailyMin">
-      <option value="00">--select--</option>
-      <option value="00">00</option>
-      <option value="15">15</option>
-      <option value="30">30</option>
-      <option value="45">45</option>
-    </select>
+      <select id="dailyHour">
+        <option value="-1">--hour--</option>
+        <option value="00">00</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
+        <option value="10">10</option>
+      </select>
+
+      <select id="dailyMin">
+        <option value="00">--minute--</option>
+        <option value="00">00</option>
+        <option value="15">15</option>
+        <option value="30">30</option>
+        <option value="45">45</option>
+      </select>
+
+    </div>
 
     <br>
     <br>
-    Distract Time Remaining:
-    <br>
-    <span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
-    <br>
-    <br>
-    BlockList
 
+    <div class="timeContain">
+
+      <div class = "dl">Distract Time Remaining:</div>
+
+      <ul class="timeTable">
+        <li class="timeRow"><span id="hours"></span><div class="hrs">HOURS</div></li>
+        <li class="timeRow"><span id="minutes"></span><div class="mins">MIN'S</div></li>
+        <li class="timeRow"><span id="seconds"></span><div class="secs">SEC'S</div></li>
+      </ul>
+
+    </div>
+
+    <br>
+    <br>
+
+    <p>BlockList</p>
 
     <div class="bl-container">
 
