@@ -5,20 +5,21 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="widget.css"/>
+     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
   </head>
 
 <body class="widget">
 
   <div id="popup-content">
 
-    <div class = "title">SITE-STALL</div>
+    <div class = "title">SITE STALL</div>
     <div class = "descrip">an online distraction tool</div>
 
     <hr>
-    <br>
+    <!-- <br> -->
 
     <div class = "dl">Choose a Daily Limit</div>
-    <br>
+    <!-- <br> -->
 
     <!-- <pre class="center">[select HOURS]          [select MINUTES]</pre> -->
 
@@ -55,24 +56,24 @@
 
     </div>
 
-    <br>
+    <!-- <br> -->
     <hr>
-    <br>
+    <!-- <br> -->
 
     <div class = "dl">Distract Time Remaining</div>
 
-    <div align = "center" class="dh">
+    <div align = "center" >
 
         <div class="hrs">HRS</div>
-        <div id="hours"></div>
+        <div id="hours">00</div>
 
         <div class="mins">MINS</div>
-        <div id="minutes"></div>
+        <div id="minutes">00</div>
 
     </div>
 
     <hr>
-    <br>
+    <!-- <br> -->
 
     <div class = "dl">BLOCKLIST</div>
 
@@ -104,14 +105,17 @@
       </table>
 
     </div>
-    <button class="save" id="save" type="button">save blocklist</button>
+
+    <div class="savewrap">
+      <button class="save" id="save" type="button">save blocklist</button>
+    </div>
 
     <hr>
-    <br>
+    <!-- <br> -->
 
     <div class = "dl"><a href="stats.html" target="targetframe">STATISTICS</a></div>
 
-    <br>
+    <!-- <br> -->
     <hr>
 
   </div>
