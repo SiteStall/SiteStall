@@ -1,36 +1,24 @@
 document.getElementById('dailyHour').addEventListener('change', function() {
 
-	window.alert("2");
-
 	var hour = document.getElementById('hours');
-	var sec = document.getElementById('seconds');
 
 	while( hour.firstChild ) {
 		hour.removeChild( hour.firstChild );
 	}
-	while( sec.firstChild ) {
-		sec.removeChild( sec.firstChild );
-	}
-	sec.appendChild( document.createTextNode('00') );
+
 	hour.appendChild( document.createTextNode(this.value) );
 
 });
 
 document.getElementById('dailyMin').addEventListener('change', function() {
 
-	window.alert("2");
-
 	var min = document.getElementById('minutes');
-	var sec = document.getElementById('seconds');
 
 	while( min.firstChild ) {
 		min.removeChild( min.firstChild );
 	}
-	while( sec.firstChild ) {
-		sec.removeChild( sec.firstChild );
-	}
+
 	min.appendChild( document.createTextNode(this.value) );
-	sec.appendChild( document.createTextNode('00') );
 
 });
 
@@ -43,11 +31,11 @@ function listenForClicks() {
 
 	/**
 	 * Adds a row to the table of websites to block
-	 * 
+	 *
 	 * Author: Noah Tigner
-	 * 
-	 * Args: 
-	 * 
+	 *
+	 * Args:
+	 *
 	 * Returns:
 	 */
 	function add_row(tabs, val) {
@@ -93,11 +81,11 @@ function listenForClicks() {
 
 	/**
 	 * when the table is changed, use its contents to update the blocklist in storage
-	 * 
+	 *
 	 * Author: Noah Tigner
-	 * 
-	 * Args: 
-	 * 
+	 *
+	 * Args:
+	 *
 	 * Returns:
 	 */
 	function tableToStorage(tabs) {
@@ -112,7 +100,7 @@ function listenForClicks() {
 					unique.push(rows[i].value)
 				}
 			}
-		
+
 			var bl = [];
 			for(let i = 0; i < unique.length; i++) {
 				bl.push({site: unique[i], time: 0});
@@ -127,11 +115,11 @@ function listenForClicks() {
 
 	/**
 	 * when the widget load, load the blocklist into the table, creating and filling necessary rows
-	 * 
+	 *
 	 * Author: Noah Tigner
-	 * 
-	 * Args: 
-	 * 
+	 *
+	 * Args:
+	 *
 	 * Returns:
 	 */
 	function storageToTable(tabs) {
@@ -177,11 +165,11 @@ function listenForClicks() {
 
 		/**
 		 * deletes a specific row from the table
-		 * 
+		 *
 		 * Author: Noah Tigner
-		 * 
+		 *
 		 * Args: e, the event (passed to parent function)
-		 * 
+		 *
 		 * Returns:
 		 */
 		function delete_row(tabs) {
