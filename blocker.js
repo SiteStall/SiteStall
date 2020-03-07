@@ -44,7 +44,7 @@ function block() {
     window.location = browser.extension.getURL("blocked.html");
 }
 
-var printStorageInfo = 1;
+var printStorageInfo = 0;
 
 /** Function: addWebsite()
  *      Adds a website to the block list. The current block list being used should be set equal
