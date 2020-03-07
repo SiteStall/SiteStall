@@ -143,8 +143,47 @@ function listenForClicks() {
 		});
 	}
 
+  /**
+	 * Updates save button when clicked.
+	 *
+	 * Author: Sean Wilson
+	 *
+	 * Args:
+	 *
+	 * Returns:
+	 */
+	function saveVisual(tabs) {
+      var saveButton = document.getElementById("save");
+      document.getElementById('save').innerHTML = 'saved!';
+      // save.style.backgroundColor = "rgb(52, 110, 124)";
+      // save.style.color = "rgb(235, 235, 235)";
+      // save.style.borderColor = "rgb(20, 30, 36)";
+
+      save.classList.remove("toggleclass");
+
+  }
+
+  /**
+	 * Updates save button when table changed.
+	 *
+	 * Author: Sean Wilson
+	 *
+	 * Args:
+	 *
+	 * Returns:
+	 */
+	function saveReset(tabs) {
+      document.getElementById('save').innerHTML = 'save blocklist';
+      var saveButton = document.getElementById("save");
+      // save.style.color = "rgb(231, 109, 81)";
+      // save.style.backgroundColor = "rgb(35, 35, 35)";
+      // save.style.borderColor = "rgb(231, 109, 81)";
+
+      save.classList.add("toggleclass");
+  }
+
 	/**
-	 * Updates the time dropdowns and timers. 
+	 * Updates the time dropdowns and timers.
 	 *
 	 * Author: Noah Tigner
 	 *
@@ -268,18 +307,26 @@ function listenForClicks() {
 		 * Get the active tab
 		 */
 
+    if (e.target.classList.contains("site-name")) {
+			browser.tabs.query({active: true, currentWindow: true})
+				.then(saveReset)
+ 		}
 		if (e.target.classList.contains("bl-table-add-row")) {
 			browser.tabs.query({active: true, currentWindow: true})
 				.then(add_row)
+        .then(saveReset)
 		}
 		if (e.target.classList.contains("bl-table-delete-row")) {
 			browser.tabs.query({active: true, currentWindow: true})
 				.then(delete_row)
+        .then(saveReset)
 		}
 		if (e.target.classList.contains("save")) {
 			browser.tabs.query({active: true, currentWindow: true})
 				.then(tableToStorage)
+        .then(saveVisual)
 		}
+
 	});
 }
 
