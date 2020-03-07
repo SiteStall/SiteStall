@@ -200,15 +200,8 @@ var blocklist = getWebsites();  // had to chain this to block() compareURL to wo
 
 /*
 NOTES:
-    - Will need to write some variables (likely threshold and time_left) to storage in a file
-
-    TODO: 
-
-        - Connect this to the blocking module, so functions are called each time.
-        - Deal with I/O to save threshold, time_left, current_date
-            - Can use local storage.
-
-        Check current tab: window.location.url()
+    - Needs to reset at midnight
+    - Needs to read from GUI
 */
 
 window.onfocus = function() {
@@ -227,16 +220,34 @@ window.onblur = function() {
 };
 
 // Global variables
-var threshold = 1; //Global threshold variable (amount available each day, in minutes)
+var threshold; //Global threshold variable (amount available each day, in minutes)
 var time_left;
 
-
-// Setting the threshold value.
-browser.storage.local.set({"threshold": threshold});
+browser.storage.local.get(["thresholdHours"], function(result1){
+    browser.storage.local.get(["thresholdMinutes"], function(result2){
+        var threshHours = HoursToMinutes(result1["thresholdHours"]);
+        var threshMins = result2["thresholdMinutes"];
+        if(threshMins != NaN && threshHours != NaN){
+            threshold = parseInt(threshHours, 10) + parseInt(threshMins, 10);
+            time_left = MinutesToMilliseconds(threshold);
+            console.log("Threshold from GUI:", threshold);
+            // Setting the threshold value.
+            browser.storage.local.set({"threshold": threshold});
+        }
+        else{
+            threshold = 60;
+            time_left = MinutesToMilliseconds(threshold);
+            console.log("Threshold set by default to:", threshold);
+            // Setting the threshold value.
+            browser.storage.local.set({"threshold": threshold});
+        }
+    });
+});
 
 browser.storage.local.get(["time_left"], function(result){
     var val = result["time_left"];
     if (typeof val === "undefined"){ // Hasn't been set before, establish as threshold.
+        console.log("Current value of threshold is:", threshold);
         time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
         console.log('Set time_left as:', time_left);
     }
@@ -254,6 +265,13 @@ function MinutesToMilliseconds(time){
         Convert a given time in minutes to milliseconds (helper for setTimeout)
     */
     return time*(60000)
+}
+
+function HoursToMinutes(time){
+    /*
+        Convert a given time in hours to minutes (helper for setTimeout)
+    */
+    return time*(60)
 }
 
 function timeUp(){
