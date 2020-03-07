@@ -1,25 +1,11 @@
 document.getElementById('dailyHour').addEventListener('change', function() {
-
-	var hour = document.getElementById('hours');
-
-	while( hour.firstChild ) {
-		hour.removeChild( hour.firstChild );
-	}
-
-	hour.appendChild( document.createTextNode(this.value) );
-
+	browser.storage.local.set({thresholdHours: this.value});
+	browser.storage.local.set({hoursLeft: this.value});
 });
 
 document.getElementById('dailyMin').addEventListener('change', function() {
-
-	var min = document.getElementById('minutes');
-
-	while( min.firstChild ) {
-		min.removeChild( min.firstChild );
-	}
-
-	min.appendChild( document.createTextNode(this.value) );
-
+	browser.storage.local.set({thresholdMinutes: this.value});
+	browser.storage.local.set({minutesLeft: this.value});
 });
 
 
@@ -157,8 +143,82 @@ function listenForClicks() {
 		});
 	}
 
+	function storageToTime(tabs) {
+
+		// window.alert("stTime");
+
+		var hoursLeft = 0;
+		var hour = document.getElementById('hours');
+		browser.storage.local.get("hoursLeft", data => {
+			if(data.hoursLeft && parseInt(data.hoursLeft) > 0) {
+				hoursLeft = parseInt(data.hoursLeft);
+				if(hoursLeft < 10) {
+					hoursLeft = "0" + hoursLeft.toString();
+				}
+
+				while(hour.firstChild ) {
+					hour.removeChild(hour.firstChild);
+				}
+				hour.appendChild(document.createTextNode(hoursLeft));
+			}
+			else {
+				while(hour.firstChild ) {
+					hour.removeChild(hour.firstChild);
+				}
+				hour.appendChild(document.createTextNode("00"));
+			}
+		});
+
+		// thresholdHours
+		var threshHour = document.getElementById('dailyHour');
+		browser.storage.local.get("thresholdHours", data => {
+			if(data.thresholdHours) {
+				let t = data.thresholdHours;
+
+				threshHour.value=t;
+			}
+		});
+
+		var minutesLeft = 0;
+		var minute = document.getElementById('minutes');
+		browser.storage.local.get("minutesLeft", data => {
+			if(data.minutesLeft && parseInt(data.minutesLeft) > 0) {
+				minutesLeft = parseInt(data.minutesLeft);
+				if(minutesLeft < 10) {
+					minutesLeft = "0" + minutesLeft.toString();
+				}
+
+				while(minute.firstChild ) {
+					minute.removeChild(minute.firstChild);
+				}
+				minute.appendChild(document.createTextNode(minutesLeft));
+			}
+			else {
+				while(minute.firstChild ) {
+					minute.removeChild(minute.firstChild);
+				}
+				minute.appendChild(document.createTextNode("00"));
+			}
+		});
+
+		// thresholdMinutes
+		var threshMin = document.getElementById('dailyMin');
+		browser.storage.local.get("thresholdMinutes", data => {
+			if(data.thresholdMinutes) {
+				let t = data.thresholdMinutes;
+
+				threshMin.value=t;
+			}
+		});
+	}
+
+	browser.storage.onChanged.addListener(changeData => {
+		storageToTime();
+	});
+
 	document.addEventListener("focus", (e) => {
 		storageToTable();
+		storageToTime();
 	});
 
 	document.addEventListener("click", (e) => {
