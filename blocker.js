@@ -203,6 +203,16 @@ NOTES:
     - Needs to reset at midnight
     - Needs to read from GUI
 */
+function sleep(milliseconds) { 
+let timeStart = new Date().getTime(); 
+    while (true) { 
+        let elapsedTime = new Date().getTime() - timeStart; 
+        if (elapsedTime > milliseconds) { 
+            break; 
+        } 
+    } 
+    console.log("WAKING NOW.");
+} 
 
 window.onfocus = function() {
     console.log("FOCUSED");
@@ -223,39 +233,47 @@ window.onblur = function() {
 var threshold; //Global threshold variable (amount available each day, in minutes)
 var time_left;
 
-browser.storage.local.get(["thresholdHours"], function(result1){
-    browser.storage.local.get(["thresholdMinutes"], function(result2){
-        var threshHours = HoursToMinutes(result1["thresholdHours"]);
-        var threshMins = result2["thresholdMinutes"];
-        if(threshMins != NaN && threshHours != NaN){
-            threshold = parseInt(threshHours, 10) + parseInt(threshMins, 10);
-            time_left = MinutesToMilliseconds(threshold);
-            console.log("Threshold from GUI:", threshold);
-            // Setting the threshold value.
-            browser.storage.local.set({"threshold": threshold});
-        }
-        else{
-            threshold = 60;
-            time_left = MinutesToMilliseconds(threshold);
-            console.log("Threshold set by default to:", threshold);
-            // Setting the threshold value.
-            browser.storage.local.set({"threshold": threshold});
-        }
-    });
-});
+function getTimes(){
+    /*
+        Get current times.
+    */
+    browser.storage.local.get(["thresholdHours"], function(result1){
+        browser.storage.local.get(["thresholdMinutes"], function(result2){
+            var threshHours = HoursToMinutes(result1["thresholdHours"]);
+            var threshMins = result2["thresholdMinutes"];
+            if(threshMins != NaN && threshHours != NaN){
+                threshold = parseInt(threshHours, 10) + parseInt(threshMins, 10);
+                // time_left = MinutesToMilliseconds(threshold);
+                console.log("Threshold from GUI:", threshold);
+                // Setting the threshold value.
+                browser.storage.local.set({"threshold": threshold});
+            }
+            else{
+                threshold = 60;
+                // time_left = MinutesToMilliseconds(threshold);
+                console.log("Threshold set by default to:", threshold);
+                // Setting the threshold value.
+                browser.storage.local.set({"threshold": threshold});
+            }
 
-browser.storage.local.get(["time_left"], function(result){
-    var val = result["time_left"];
-    if (typeof val === "undefined"){ // Hasn't been set before, establish as threshold.
-        console.log("Current value of threshold is:", threshold);
-        time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
-        console.log('Set time_left as:', time_left);
-    }
-    else{
-        time_left = val;
-        console.log('Retrieved the variable time_left as:', val);
-    }
-});
+            browser.storage.local.get(["time_left"], function(result){
+                var val = result["time_left"];
+                // sleep(5000);
+                if (typeof val === "undefined" || typeof val === NaN){ // Hasn't been set before, establish as threshold.
+                    console.log("Current value of threshold is:", threshold);
+                    time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
+                    console.log('Set time_left as:', time_left);
+                }
+                else{
+                    time_left = val;
+                    console.log('Retrieved the variable time_left as:', val);
+                }
+            });
+        });
+    });
+}
+
+getTimes();
 
 var timeout; 
 var interval; 
