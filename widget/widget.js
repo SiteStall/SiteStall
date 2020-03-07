@@ -143,9 +143,16 @@ function listenForClicks() {
 		});
 	}
 
+	/**
+	 * Updates the time dropdowns and timers. 
+	 *
+	 * Author: Noah Tigner
+	 *
+	 * Args:
+	 *
+	 * Returns:
+	 */
 	function storageToTime(tabs) {
-
-		// window.alert("stTime");
 
 		var hoursLeft = 0;
 		var hour = document.getElementById('hours');
@@ -174,7 +181,6 @@ function listenForClicks() {
 		browser.storage.local.get("thresholdHours", data => {
 			if(data.thresholdHours) {
 				let t = data.thresholdHours;
-
 				threshHour.value=t;
 			}
 		});
@@ -206,7 +212,6 @@ function listenForClicks() {
 		browser.storage.local.get("thresholdMinutes", data => {
 			if(data.thresholdMinutes) {
 				let t = data.thresholdMinutes;
-
 				threshMin.value=t;
 			}
 		});
