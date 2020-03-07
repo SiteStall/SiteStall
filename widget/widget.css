@@ -1,6 +1,9 @@
 html, body {
-  width: 250px;
+  width: 260px;
   background-color: rgb(20, 30, 36);
+
+  font-family: 'Poppins', sans-serif;
+
 }
 
 .hidden {
@@ -13,7 +16,7 @@ html, body {
 
 .title {
   font-size: 34px;
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   text-align:center;
   color: rgb(231, 109, 81);
 }
@@ -21,23 +24,28 @@ html, body {
 .descrip {
   font-size: 15px;
   font-style: italic;
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   text-align:center;
   color: rgb(231, 109, 81);
 }
 
 .dl {
   font-size: 20px;
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   text-align:center;
   background-color: rgb(52, 110, 124);
   color: rgb(235, 235, 235);
 }
 
+.dh {
+  padding-top: 10px;
+}
+
 .center {
   font-size: 15px;
 	text-align: center;
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
+
   font-weight: normal;
   background-color: rgb(52, 110, 124);
   color: rgb(16, 47, 59);
@@ -46,7 +54,7 @@ html, body {
 #dailyHour {
 
   font-size: 13px;
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   text-align:center;
 
   align-content:left;
@@ -60,7 +68,7 @@ html, body {
 
 #dailyHour:hover {
   font-size: 13px;
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   text-align:center;
 
   align-content:left;
@@ -75,7 +83,7 @@ html, body {
 #dailyMin {
 
   font-size: 13px;
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   text-align:center;
 
   align-content:right;
@@ -89,7 +97,7 @@ html, body {
 
 #dailyMin:hover {
   font-size: 13px;
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   text-align:center;
 
   align-content:right;
@@ -114,7 +122,7 @@ html, body {
 .timeRow span {
   display: block;
   font-size: 15px;
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   color: rgb(0, 0, 0);
 }
 
@@ -122,7 +130,7 @@ html, body {
   display: inline;
   font-size: 15px;
 	/* text-align: left; */
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   color: rgb(205, 205, 205);
 }
 
@@ -130,39 +138,31 @@ html, body {
   display: inline;
   font-size: 15px;
 	/* text-align: center; */
-  font-family: Impact, Charcoal, sans-serif;
+  /* font-family: Impact, Charcoal, sans-serif; */
   color: rgb(205, 205, 205);
 }
 
 .mins {
   display: inline;
   font-size: 15px;
-	/* text-align: right; */
-  font-family: Impact, Charcoal, sans-serif;
   color: rgb(205, 205, 205);
 }
 
 #hours {
   display: inline;
   font-size: 20px;
-	/* text-align: left; */
-  font-family: Impact, Charcoal, sans-serif;
   color: rgb(231, 109, 81);
 }
 
 #minutes {
   display: inline;
   font-size: 20px;
-	/* text-align: center; */
-  font-family: Impact, Charcoal, sans-serif;
   color: rgb(231, 109, 81);
 }
 
 #seconds {
   display: inline;
   font-size: 20px;
-	/* text-align: right; */
-  font-family: Impact, Charcoal, sans-serif;
   color: rgb(231, 109, 81);
 }
 
@@ -176,7 +176,6 @@ html, body {
 
 .tableHead {
   font-size: 15px;
-  font-family: Impact, Charcoal, sans-serif;
   text-align:center;
   color: rgb(205, 205, 205);
   min-width: 175px;
@@ -184,14 +183,10 @@ html, body {
 
 .bl-table-add-row {
   transition-duration: 0.3s;
-
   background-color: rgb(231, 109, 81);
   border: none;
-
-  /* color: white; */
   color: rgb(35, 35, 35);
-
-  padding: 0px 26px;
+  padding: 0px 29px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -199,14 +194,10 @@ html, body {
 }
 
 .bl-table-add-row:hover {
-
   background-color: rgb(201, 79, 51);
-
   color: white;
-  /* color: rgb(35, 35, 35); */
-
   border: none;
-  padding: 0px 26px;
+  padding: 0px 29px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -214,20 +205,14 @@ html, body {
 }
 
 .bl-table-row {
-  /* background-color: rgb(41, 42, 40); */
 }
 
 .bl-table-delete-row {
-
   transition-duration: 0.3s;
-
   background-color: rgb(231, 109, 81);
   border: none;
-
-  /* color: white; */
   color: rgb(35, 35, 35);
-
-  padding: 0px 28px;
+  padding: 0px 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -236,12 +221,9 @@ html, body {
 
 .bl-table-delete-row:hover {
   background-color: rgb(201, 79, 51);
-
-  /* color: rgb(35, 35, 35); */
   color: white;
-
   border: none;
-  padding: 0px 26px;
+  padding: 0px 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -249,6 +231,7 @@ html, body {
 }
 
 .site-name {
+  padding: 0px 4px;
   transition-duration: 0.3s;
   border: 3px solid rgb(52, 110, 124);
   background-color: rgb(20, 30, 36);
@@ -256,76 +239,52 @@ html, body {
 }
 
 .site-name:hover {
+  padding: 0px 4px;
   border: 3px solid rgb(52, 110, 124);
   background-color: rgb(26, 57, 69);
   color: rgb(235, 235, 235);
 }
 
+.savewrap {
+  padding-top: 10px;
+}
+
 .save {
 
   border: 1px solid rgb(231, 109, 81);
-
   transition-duration: 0.3s;
-
   display: block;
   max-width: 300px;
   margin: auto;
-
   text-decoration: none;
   font-size: 15px;
-  font-family: Impact, Charcoal, sans-serif;
   text-align:center;
-
-  /* background-color: rgb(231, 109, 81); */
   background-color: rgb(35, 35, 35);
-
-  /* color: rgb(235, 235, 235); */
-
-  /* color: rgb(35, 35, 35); */
   color: rgb(231, 109, 81);
 }
 
 .save:hover {
-
   border: 1px solid rgb(20, 30, 36);
-
   display: block;
   max-width: 300px;
   margin: auto;
-
   text-decoration: none;
   font-size: 15px;
-  font-family: Impact, Charcoal, sans-serif;
   text-align:center;
   background-color: rgb(201, 79, 51);
-
-  /* color: rgb(35, 35, 35); */
-
   color: rgb(235, 235, 235);
 }
 
 a:link, a:visited {
-  /* background-color: rgb(52, 110, 124);
-  color: rgb(235, 235, 235); */
   background-color: rgb(231, 109, 81);
-
-  /* color: rgb(235, 235, 235); */
   color: rgb(35, 35, 35);
-
   transition-duration: 0.3s;
-
   text-align: center;
   text-decoration: none;
-  padding: 0px 80px;
+  padding: 1px 79px;
 }
 
 a:hover, a:active {
-  /* background-color: rgb(231, 109, 81);
-  color: rgb(35, 35, 35); */
-
   background-color: rgb(201, 79, 51);
-
-  /* color: rgb(35, 35, 35); */
-
   color: rgb(235, 235, 235);
 }
