@@ -259,14 +259,14 @@ function getTimes(){
             browser.storage.local.get(["time_left"], function(result){
                 var val = result["time_left"];
                 // sleep(5000);
-                if (typeof val === "undefined" || typeof val === NaN){ // Hasn't been set before, establish as threshold.
+                if (val == undefined || val == NaN){ // Hasn't been set before, establish as threshold.
                     console.log("Current value of threshold is:", threshold);
                     time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
                     console.log('Set time_left as:', time_left);
                 }
                 else{
                     time_left = val;
-                    console.log('Retrieved the variable time_left as:', val);
+                    console.log('Retrieved the variable time_left as:', time_left);
                 }
             });
         });
