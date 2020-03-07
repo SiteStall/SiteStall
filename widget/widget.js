@@ -1,25 +1,11 @@
 document.getElementById('dailyHour').addEventListener('change', function() {
-
-	var hour = document.getElementById('hours');
-
-	while( hour.firstChild ) {
-		hour.removeChild( hour.firstChild );
-	}
-
-	hour.appendChild( document.createTextNode(this.value) );
-
+	browser.storage.local.set({thresholdHours: this.value});
+	browser.storage.local.set({hoursLeft: this.value});
 });
 
 document.getElementById('dailyMin').addEventListener('change', function() {
-
-	var min = document.getElementById('minutes');
-
-	while( min.firstChild ) {
-		min.removeChild( min.firstChild );
-	}
-
-	min.appendChild( document.createTextNode(this.value) );
-
+	browser.storage.local.set({thresholdMinutes: this.value});
+	browser.storage.local.set({minutesLeft: this.value});
 });
 
 
@@ -157,8 +143,126 @@ function listenForClicks() {
 		});
 	}
 
+  /**
+	 * Updates save button when clicked.
+	 *
+	 * Author: Sean Wilson
+	 *
+	 * Args:
+	 *
+	 * Returns:
+	 */
+	function saveVisual(tabs) {
+      var saveButton = document.getElementById("save");
+      document.getElementById('save').innerHTML = 'saved!';
+      // save.style.backgroundColor = "rgb(52, 110, 124)";
+      // save.style.color = "rgb(235, 235, 235)";
+      // save.style.borderColor = "rgb(20, 30, 36)";
+
+      save.classList.remove("toggleclass");
+
+  }
+
+  /**
+	 * Updates save button when table changed.
+	 *
+	 * Author: Sean Wilson
+	 *
+	 * Args:
+	 *
+	 * Returns:
+	 */
+	function saveReset(tabs) {
+      document.getElementById('save').innerHTML = 'save blocklist';
+      var saveButton = document.getElementById("save");
+      // save.style.color = "rgb(231, 109, 81)";
+      // save.style.backgroundColor = "rgb(35, 35, 35)";
+      // save.style.borderColor = "rgb(231, 109, 81)";
+
+      save.classList.add("toggleclass");
+  }
+
+	/**
+	 * Updates the time dropdowns and timers.
+	 *
+	 * Author: Noah Tigner
+	 *
+	 * Args:
+	 *
+	 * Returns:
+	 */
+	function storageToTime(tabs) {
+
+		var hoursLeft = 0;
+		var hour = document.getElementById('hours');
+		browser.storage.local.get("hoursLeft", data => {
+			if(data.hoursLeft && parseInt(data.hoursLeft) > 0) {
+				hoursLeft = parseInt(data.hoursLeft);
+				if(hoursLeft < 10) {
+					hoursLeft = "0" + hoursLeft.toString();
+				}
+
+				while(hour.firstChild ) {
+					hour.removeChild(hour.firstChild);
+				}
+				hour.appendChild(document.createTextNode(hoursLeft));
+			}
+			else {
+				while(hour.firstChild ) {
+					hour.removeChild(hour.firstChild);
+				}
+				hour.appendChild(document.createTextNode("00"));
+			}
+		});
+
+		// thresholdHours
+		var threshHour = document.getElementById('dailyHour');
+		browser.storage.local.get("thresholdHours", data => {
+			if(data.thresholdHours) {
+				let t = data.thresholdHours;
+				threshHour.value=t;
+			}
+		});
+
+		var minutesLeft = 0;
+		var minute = document.getElementById('minutes');
+		browser.storage.local.get("minutesLeft", data => {
+			if(data.minutesLeft && parseInt(data.minutesLeft) > 0) {
+				minutesLeft = parseInt(data.minutesLeft);
+				if(minutesLeft < 10) {
+					minutesLeft = "0" + minutesLeft.toString();
+				}
+
+				while(minute.firstChild ) {
+					minute.removeChild(minute.firstChild);
+				}
+				minute.appendChild(document.createTextNode(minutesLeft));
+			}
+			else {
+				while(minute.firstChild ) {
+					minute.removeChild(minute.firstChild);
+				}
+				minute.appendChild(document.createTextNode("00"));
+			}
+		});
+
+		// thresholdMinutes
+		var threshMin = document.getElementById('dailyMin');
+		browser.storage.local.get("thresholdMinutes", data => {
+			if(data.thresholdMinutes) {
+				let t = data.thresholdMinutes;
+				threshMin.value=t;
+			}
+		});
+	}
+
+	browser.storage.onChanged.addListener(changeData => {
+		storageToTime();
+	});
+
 	document.addEventListener("focus", (e) => {
 		storageToTable();
+		storageToTime();
 	});
 
 	document.addEventListener("click", (e) => {
@@ -203,18 +307,26 @@ function listenForClicks() {
 		 * Get the active tab
 		 */
 
+    if (e.target.classList.contains("site-name")) {
+			browser.tabs.query({active: true, currentWindow: true})
+				.then(saveReset)
+ 		}
 		if (e.target.classList.contains("bl-table-add-row")) {
 			browser.tabs.query({active: true, currentWindow: true})
 				.then(add_row)
+        .then(saveReset)
 		}
 		if (e.target.classList.contains("bl-table-delete-row")) {
 			browser.tabs.query({active: true, currentWindow: true})
 				.then(delete_row)
+        .then(saveReset)
 		}
 		if (e.target.classList.contains("save")) {
 			browser.tabs.query({active: true, currentWindow: true})
 				.then(tableToStorage)
+        .then(saveVisual)
 		}
+
 	});
 }
 
