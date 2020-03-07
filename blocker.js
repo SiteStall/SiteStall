@@ -41,10 +41,11 @@ function block() {
     window.stop();
 
     browser.storage.local.set({blockedSite: window.location});
+    console.log("RELOCATION!!!");
     window.location = browser.extension.getURL("blocked.html");
 }
 
-var printStorageInfo = 1;
+var printStorageInfo = 0;
 
 /** Function: addWebsite()
  *      Adds a website to the block list. The current block list being used should be set equal
@@ -188,10 +189,10 @@ var blocklist = getWebsites();  // had to chain this to block() compareURL to wo
 // compareURL(blocklist);
 
 // add event listener for blocklist in storage.local... then update getWebsites?
-browser.storage.onChanged.addListener(changeData => {
-    // window.alert("BL[0] Changed: " + changeData.websiteList.newValue[0].site);    
-    getWebsites();
-});
+// browser.storage.onChanged.addListener(changeData => {
+//     // window.alert("BL[0] Changed: " + changeData.websiteList.newValue[0].site);    
+//     getWebsites();
+// });
 
 /* ============================================================================= */
 /* ================================scheduling=================================== */
@@ -210,18 +211,40 @@ NOTES:
         Check current tab: window.location.url()
 */
 
+window.onfocus = function() {
+    console.log("FOCUSED");
+    browser.storage.local.get(["time_left"], function(result){
+        time_left = result["time_left"];
+        console.log('Retrieved the variable time_left as:', time_left);
+    });
+    getWebsites();
+};
+
+window.onblur = function() {
+    console.log("BLURRED");
+    browser.storage.local.set({"time_left": time_left});
+    stopTime();
+};
 
 // Global variables
-// These should be set (read from file), when the program is started. 
-
 var threshold = 1; //Global threshold variable (amount available each day, in minutes)
-localStorage["threshold"] = threshold;
-if(localStorage["time_left"] == NaN){
-    localStorage["time_left"] = threshold;
-}
+var time_left;
 
-var time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
-time_left = localStorage["time_left"];
+
+// Setting the threshold value.
+browser.storage.local.set({"threshold": threshold});
+
+browser.storage.local.get(["time_left"], function(result){
+    var val = result["time_left"];
+    if (typeof val === "undefined"){ // Hasn't been set before, establish as threshold.
+        time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
+        console.log('Set time_left as:', time_left);
+    }
+    else{
+        time_left = val;
+        console.log('Retrieved the variable time_left as:', val);
+    }
+});
 
 var timeout; 
 var interval; 
@@ -237,7 +260,7 @@ function timeUp(){
     /*
         Called if user is on blocklisted site and runs out of time.
     */
-    console.log("Start blocking!")
+    // console.log("Call to timeUp()!")
     stopTime();
     block();
 }
@@ -247,7 +270,13 @@ function adjustTimeLeft(){
         Function which decrements the time left every second.
     */
     time_left -= 1000
-    console.log("Time left is now:", time_left)
+
+    //Updating time_left in storage.
+    browser.storage.local.set({"time_left": time_left});
+    browser.storage.local.get(["time_left"], function(result){
+        var curr_time = result["time_left"];
+        console.log('Time_left adjusted to:', curr_time);
+    });
 
     if(time_left < 0){
         timeUp()
@@ -261,7 +290,7 @@ function startTime(time_before_blocking){
     */
 
     //Triggered when they visit a blockslisted site.
-    console.log("Starting timer.")
+    // console.log("Call to start timing.")
     timeout = setTimeout(function(){timeUp}, time_before_blocking);
     interval = setInterval(adjustTimeLeft, 1000);   
 }
@@ -273,9 +302,10 @@ function stopTime(){
     clearTimeout(timeout);
     clearInterval(interval);
 
+    console.log("Call to stop timing.");
+
     //Write the new time to storage file.
-    localStorage["time_left"] = time_left;
-    print(localStorage["time_left"])
+    browser.storage.local.set({"time_left": time_left});
 
 }
 
