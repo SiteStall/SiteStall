@@ -15,7 +15,7 @@ function compareURL(blocklist) {
     for(let i = 0; i < blocklistLength; i++) {
         // window.alert(blocklist[i].site);
         //if(loc.localeCompare(blocklist[i].site) === 0) {
-        if (shoudlBeBlocked(blocklist[i].site)) {
+        if (shouldBeBlocked(blocklist[i].site)) {
             // block();
             console.log("Blocklisted.");
             startTime(time_left);
@@ -40,7 +40,7 @@ function compareURL(blocklist) {
  *
  * Returns: 1 if the website should be blocked, 0 otherwise.
  */
-function shoudlBeBlocked(in_url) {
+function shouldBeBlocked(in_url) {
     // web_url will never have https or anything after .com
     var web_url = window.location.hostname;
     var splitted = in_url.split('/'); // split url from blocklist on forward slash
