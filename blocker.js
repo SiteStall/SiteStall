@@ -312,6 +312,16 @@ function adjustTimeLeft(){
     browser.storage.local.get(["time_left"], function(result){
         var curr_time = result["time_left"];
         console.log('Time_left adjusted to:', curr_time);
+
+        var hourInMilliseconds = 3600000; // hour in milliseconds
+        var minuteInMilliseconds = 60000; // minute in milliseconds
+
+        var hoursLeft = Math.floor(curr_time/hourInMilliseconds);
+        var minutesLeft = Math.floor((curr_time%hourInMilliseconds)/minuteInMilliseconds);
+        console.log("Hours left is:", hoursLeft);
+        console.log("Minutes left is:", minutesLeft);
+        browser.storage.local.set({"hoursLeft": hoursLeft});
+        browser.storage.local.set({"minutesLeft": minutesLeft});
     });
 
     if(time_left < 0){
