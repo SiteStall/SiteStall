@@ -8,14 +8,14 @@
  * Returns:
  */
 function compareURL(blocklist) {
-    var loc = window.location.hostname;
-
+    //var loc = window.location.hostname;
     // window.alert("(comp) bl: " + blocklist);
 
     var blocklistLength = blocklist.length;
     for(let i = 0; i < blocklistLength; i++) {
         // window.alert(blocklist[i].site);
-        if(loc.localeCompare(blocklist[i].site) === 0) {
+        //if(loc.localeCompare(blocklist[i].site) === 0) {
+        if (shoudlBeBlocked(blocklist[i].site)) {
             // block();
             console.log("Blocklisted.");
             startTime(time_left);
@@ -26,6 +26,32 @@ function compareURL(blocklist) {
             console.log("Not blocklisted.");
         }
     }
+}
+
+/**
+ * Checks to see if the url should be blocked. If the user-entered website does not
+ * include 'www.' but the actual website itself does, this makes sure it's blocked.
+ *
+ * Author: Jimmy Lam
+ *
+ * Args: url: the url from the blocklist
+ *
+ * Returns: 1 if the website should be blocked, 0 otherwise.
+ */
+function shoudlBeBlocked(url) {
+    var curURL = window.location.hostname;
+
+    if (curURL.localeCompare(url) === 0) {
+        return 1;
+    }
+    if (curURL.substring(0, 4) === 'www.') {
+        url = 'www.' + url;
+        if (curURL.localeCompare(url) === 0) {
+            return 1;
+        }
+    }
+    return 0;
+
 }
 
 /**
