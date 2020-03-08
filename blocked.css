@@ -3,11 +3,14 @@
     text-align: center;
     flex-direction: column;
     margin: 5% 25%;
+    color: rgb(20, 30, 36);
 }
 
 body {
     font-family: "Lucida Console", Monaco, monospace;
+    background-color:rgb(231, 109, 81);
 }
+
 h1 {
     margin: 10px;
 }
@@ -31,14 +34,56 @@ img {
     font-size: 16px;
     padding: 15px 32px;
     margin: 16px;
+    color:rgb(20, 30, 36);
+    background-color: rgb(231, 109, 81);
+    border-color: rgb(20, 30, 36);
+}
+
+.btn:hover {
+    background-color: rgb(20, 30, 36);
     color:white;
-    background-color: darkgrey;
 }
 
-#leave:hover {
-    background-color:#449950;
+select {
+    font-size: 16px;
+    padding: 15px 32px;
+    margin: 16px;
+    color:rgb(20, 30, 36);
+    background-color: rgb(231, 109, 81);
+    border-color: rgb(20, 30, 36);
+    font-size: 16px;
+
+    -moz-appearance: none;
+	-webkit-appearance: none;
+    appearance: none;
+    
+    background-image: url(icons/select-arrow.png);
+    background-repeat: no-repeat;
+    background-position: right .7em top 50%;
+    background-size: .65em auto;
+
 }
 
-#stay:hover {
-    background-color: #EC4141;
+#other_reason {
+    font-size: 16px;
+    padding: 15px 32px;
+    margin: 16px;
+    color:rgb(20, 30, 36);
+    background-color: rgb(231, 109, 81);
+    border-color: rgb(20, 30, 36);
 }
+
+select:focus {
+    background-color: rgb(20, 30, 36);
+    color:white;
+}
+
+#submit {
+    background-color: rgb(20, 30, 36);
+    color:white;
+    margin: 50px;
+    padding: 10px 25px;
+}
+
+
+

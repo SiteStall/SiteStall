@@ -27,7 +27,8 @@
 		"webRequest",
     	"activeTab",
 		"storage",
-		"unlimitedStorage"
+		"unlimitedStorage",
+		"topSites"
     ],
 
     "browser_action": {
