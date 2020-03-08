@@ -29,8 +29,10 @@ function compareURL(blocklist) {
 }
 
 /**
- * Checks to see if the url should be blocked. If the user-entered website does not
- * include 'www.' but the actual website itself does, this makes sure it's blocked.
+ * Checks to see if the url should be blocked. fixed robustness for:
+ *      - user url omits www. but website has it
+ *      - website doesn't have www. but user url has it
+ *      - user copies full url (including https) into block list
  *
  * Author: Jimmy Lam
  *
@@ -38,15 +40,35 @@ function compareURL(blocklist) {
  *
  * Returns: 1 if the website should be blocked, 0 otherwise.
  */
-function shoudlBeBlocked(url) {
-    var curURL = window.location.hostname;
+function shoudlBeBlocked(in_url) {
+    // web_url will never have https or anything after .com
+    var web_url = window.location.hostname;
+    var splitted = in_url.split('/'); // split url from blocklist on forward slash
+    //console.log(splitted);
 
-    if (curURL.localeCompare(url) === 0) {
+    var firstfour_web_url = web_url.substring(0, 4);
+    var firstfour_in_url = in_url.substring(0, 4);
+
+    // check if http is in url. If yes, get only website url
+    if (firstfour_in_url.localeCompare('http') === 0) {
+        in_url = splitted[2];
+    }
+
+    if (web_url.localeCompare(in_url) === 0) {
         return 1;
     }
-    if (curURL.substring(0, 4) === 'www.') {
-        url = 'www.' + url;
-        if (curURL.localeCompare(url) === 0) {
+    // everything past here means in_url and web_url don't match
+    // add www. to in_url if it doesn't have it but web_url does
+    else if (firstfour_web_url.localeCompare('www.') === 0) {
+        in_url = 'www.' + in_url;
+        if (web_url.localeCompare(in_url) === 0) {
+            return 1;
+        }
+    }
+    // remove www. from in_url if web_url doesn't have it
+    else {
+        in_url = in_url.substring(4); // get url after www.
+        if (web_url.localeCompare(in_url) === 0) {
             return 1;
         }
     }
