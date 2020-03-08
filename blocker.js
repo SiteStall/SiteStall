@@ -66,8 +66,9 @@ function shoudlBeBlocked(url) {
 function block() {
     window.stop();
 
-    browser.storage.local.set({blockedSite: window.location});
-    console.log("RELOCATION!!!");
+    browser.storage.local.set({blockedSite: window.location.href});
+    // console.log("RELOCATION!!!");
+    console.log(window.location.href);
     window.location = browser.extension.getURL("blocked.html");
 }
 
