@@ -290,25 +290,26 @@ function getTimes(){
         browser.storage.local.get(["thresholdMinutes"], function(result2){
             var threshHours = HoursToMinutes(result1["thresholdHours"]);
             var threshMins = result2["thresholdMinutes"];
-            if(threshMins != NaN && threshHours != NaN){
-                threshold = parseInt(threshHours, 10) + parseInt(threshMins, 10);
-                // time_left = MinutesToMilliseconds(threshold);
-                console.log("Threshold from GUI:", threshold);
+            if(threshMins == NaN || threshHours == NaN || threshMins === undefined || threshHours === undefined){
+                threshold = 60;
+                console.log("Threshold set by default to:", threshold);
+                window.alert("No threshold set in widget. Threshold automatically set to 60 minutes");
                 // Setting the threshold value.
                 browser.storage.local.set({"threshold": threshold});
             }
             else{
-                threshold = 60;
-                // time_left = MinutesToMilliseconds(threshold);
-                console.log("Threshold set by default to:", threshold);
+                // console.log("CALCULATED THRESHHOURS AS:", threshHours);
+                // console.log("CALCULATED THRESHMINS AS:", threshMins);
+                threshold = parseInt(threshHours, 10) + parseInt(threshMins, 10);
+                // console.log("CALCULATED THRESHOLD AS:", threshold);
+                console.log("Threshold from GUI:", threshold);
                 // Setting the threshold value.
                 browser.storage.local.set({"threshold": threshold});
             }
 
             browser.storage.local.get(["time_left"], function(result){
                 var val = result["time_left"];
-                // sleep(5000);
-                if (val == undefined || val == NaN){ // Hasn't been set before, establish as threshold.
+                if (val === undefined || val == NaN){ // Hasn't been set before, establish as threshold.
                     console.log("Current value of threshold is:", threshold);
                     time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
                     console.log('Set time_left as:', time_left);
@@ -365,6 +366,10 @@ function timeUp(){
         Called if user is on blocklisted site and runs out of time.
     */
     // console.log("Call to timeUp()!")
+    
+    //Check the date to see if they get a reset on time_left
+    checkDate();
+
     stopTime();
     block();
 }
@@ -373,10 +378,16 @@ function adjustTimeLeft(){
     /*
         Function which decrements the time left every second.
     */
-    time_left -= 1000
+    if(time_left === undefined || time_left == NaN){
+        console.log("Detected time_left error, reset time_left to threshold.");
+        browser.storage.local.get(["threshold"], function(result){
+            var val = result["threshold"];
+            time_left = MinutesToMilliseconds(val);
+            // console.log("TIME LEFT SET:", time_left);
+        });
+    }
 
-    //Check the date to see if they get a reset on time_left
-    checkDate();
+    time_left -= 1000
 
     //Updating time_left in storage.
     browser.storage.local.set({"time_left": time_left});
