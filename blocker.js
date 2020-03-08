@@ -17,13 +17,13 @@ function compareURL(blocklist) {
         //if(loc.localeCompare(blocklist[i].site) === 0) {
         if (shouldBeBlocked(blocklist[i].site)) {
             // block();
-            console.log("Blocklisted.");
+            // console.log("Blocklisted.");
             startTime(time_left);
             break;
         }
         else{
             stopTime();
-            console.log("Not blocklisted.");
+            // console.log("Not blocklisted.");
         }
     }
 }
@@ -320,12 +320,31 @@ function getTimes(){
             });
         });
     });
+
+    // Also set current date in local storage
+    var curr_date = new Date();
+    var day = curr_date.getDay();
+    console.log("Current date is:", day);
+    browser.storage.local.set({"curr_date": day});
 }
 
 getTimes();
 
 var timeout; 
 var interval; 
+
+function checkDate(){
+    var now = new Date();
+    var day = now.getDay();
+    browser.storage.local.get(["curr_date"], function(result){
+        var val = result["curr_date"];
+        if(parseInt(val) != parseInt(day)){
+            console.log("Reset time_left to threshold.")
+            time_left = threshold;
+            browser.storage.local.set({"time_left": time_left});
+        }
+    });
+}
 
 function MinutesToMilliseconds(time){
     /*
@@ -356,6 +375,9 @@ function adjustTimeLeft(){
     */
     time_left -= 1000
 
+    //Check the date to see if they get a reset on time_left
+    checkDate();
+
     //Updating time_left in storage.
     browser.storage.local.set({"time_left": time_left});
     browser.storage.local.get(["time_left"], function(result){
@@ -367,8 +389,8 @@ function adjustTimeLeft(){
 
         var hoursLeft = Math.floor(curr_time/hourInMilliseconds);
         var minutesLeft = Math.floor((curr_time%hourInMilliseconds)/minuteInMilliseconds);
-        console.log("Hours left is:", hoursLeft);
-        console.log("Minutes left is:", minutesLeft);
+        // console.log("Hours left is:", hoursLeft);
+        // console.log("Minutes left is:", minutesLeft);
         browser.storage.local.set({"hoursLeft": hoursLeft});
         browser.storage.local.set({"minutesLeft": minutesLeft});
     });
