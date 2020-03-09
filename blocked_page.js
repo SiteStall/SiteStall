@@ -157,10 +157,7 @@ function createInput() {
 
             // if there are no reasons stored, initialize the object
             console.log("Getting reasons");
-            results.reasons = {
-                    default: {},
-                    other: []
-                };
+            
             if (!results.reasons) {
                 console.log("There are no saved reasons, initializing");
                 results.reasons = {
