@@ -173,11 +173,11 @@ function getData() {
             // console.log(data.datasets);
             renderChart(data,labels);
             listOther(results.reasons.other);
-            getTopSites();
+
         }
     })
 }
 
-
 // MAIN CALL ON PAGE LOAD
 getData();
+getTopSites();
