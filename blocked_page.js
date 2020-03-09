@@ -56,7 +56,7 @@ function createInput() {
     var reasons_input = document.getElementById("reason");
     
     // add the select element, replacing the button 
-    reasons_input.innerHTML = '<div id="select"><select id="slct" name="reason_input"><option selected="selected">Please select a reason...</option> <option value="Task was work related">This is work related</option><option value="Was almost done with task">I am almost done</option><option value="Had no work that needed focus">I have nothing that needs focus</option><option value="Other">Other</option> </select><div>'
+    reasons_input.innerHTML = '<div id="select"><p>Enter a reason for going back to blocked site to add 15 minutes</p><select id="slct" name="reason_input"><option selected="selected">Please select a reason...</option> <option value="Task was work related">This is work related</option><option value="Was almost done with task">I am almost done</option><option value="Had no work that needed focus">I have nothing that needs focus</option><option value="Other">Other</option> </select><div>'
     var select_field = document.getElementById("slct");
    
     // add a submit and redirect button
