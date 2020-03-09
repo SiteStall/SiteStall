@@ -1,0 +1,68 @@
+html {
+    font-family: "Lucida Console", Monaco, monospace;
+    background-color:rgb(222,222,222);
+}
+
+h2 {
+    text-align: center;
+}
+
+h4 {
+    margin: 45px 25px;
+}
+#pie-chart {
+    width: 55%;
+    margin: 25px;
+}
+
+#flex {
+    display: flex;
+    flex-direction: row;
+    max-height: 400px;
+}
+
+#other {
+    margin: 20px;
+    overflow: scroll;
+}
+
+#top {
+    display: flex;
+    flex-direction: row;
+    margin: 45px 25px;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.topsites {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    height: 150px;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.icons {
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+.titles {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 10px;
+    width: 90%;
+    height: 20px;
+    text-align: center;
+}
+
+.titles:hover {
+   overflow: visible;
+   white-space: pre-line;
+   height: 25px;
+   overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+

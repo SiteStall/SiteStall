@@ -3,13 +3,23 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="widget.css"/>
+    <link rel="stylesheet" href="stats.css"/>
   </head>
 
 <body>
-  <div id="popup-content">
-    <p>Stats</p>
+  <h2>SiteStall Data</h2>
+  <div id="flex">
+    <div id="pie-chart">
+      <canvas id="reasonChart" width="10"></canvas>
+    </div>
+    <div id="other">
+      <ul id="other_list"></ul>
+    </div>
   </div>
+  <h4>Your top recent sites:</h4>
+  <div id="top">
+  </div>
+  <script src="../Chart.js"></script>
   <script src="stats.js"></script>
 </body>
 
