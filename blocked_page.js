@@ -81,13 +81,19 @@ function createInput() {
         console.log("Clicked");
         var is_other = 0;
         
-        if (reason == "Other") {
+        if (reason === "Other") {
             console.log("OTHER");
             reason =  document.getElementById("other_reason").value;
-            is_other = 1;
-            save_reason(reason,is_other);
+            if (reason !== "Enter other reason...") {
+                is_other = 1;
+                save_reason(reason, is_other);
+
+            }
+            else {
+                reason = "Other";
+            }
         }
-        else if (reason == "") {
+        else if (reason === "" || reason === "Please select a reason...") {
             document.getElementById("message").innerHTML = "<p>Please enter a reason</p>";
         }
         else {
