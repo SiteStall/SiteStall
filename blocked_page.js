@@ -180,8 +180,8 @@ function createInput() {
 
         addTime();
         
-        testStorage();
-        // redirectToBlocked();
+        // testStorage();
+        redirectToBlocked();
     }
 }
 
