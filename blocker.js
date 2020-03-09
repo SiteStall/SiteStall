@@ -281,12 +281,14 @@ window.onblur = function() {
 
 // Global variables
 var threshold; //Global threshold variable (amount available each day, in minutes)
-var time_left;
+// var time_left;
 
 function getTimes(){
     /*
         Get current times.
     */
+    // console.log("Call to getTimes.")
+
     browser.storage.local.get(["thresholdHours"], function(result1){
         browser.storage.local.get(["thresholdMinutes"], function(result2){
             var threshHours = HoursToMinutes(result1["thresholdHours"]);
@@ -318,11 +320,13 @@ function getTimes(){
                 // console.log("Threshold from GUI:", threshold);
                 
                 // Setting the threshold value.
+                // console.log("Threshold is:", threshold);
                 browser.storage.local.set({"threshold": threshold});
             }
 
             browser.storage.local.get(["time_left"], function(result){
                 var val = result["time_left"];
+                // console.log("Time left is:", val);
                 if (val === undefined || val == NaN){ // Hasn't been set before, establish as threshold.
                     // console.log("Current value of threshold is:", threshold);
                     time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
@@ -330,6 +334,7 @@ function getTimes(){
                 }
                 else{
                     time_left = val;
+                    startTime(time_left);
                     // console.log('Retrieved the variable time_left as:', time_left);
                 }
             });
@@ -393,7 +398,7 @@ function adjustTimeLeft(){
         Function which decrements the time left every second.
     */
     if(time_left === undefined || time_left == NaN){
-        console.log("Detected time_left error, reset time_left to threshold.");
+        // console.log("Detected time_left error, reset time_left to threshold.");
         browser.storage.local.get(["threshold"], function(result){
             var val = result["threshold"];
             time_left = MinutesToMilliseconds(val);
@@ -432,19 +437,34 @@ function startTime(time_before_blocking){
     */
 
     //Triggered when they visit a blockslisted site.
-    // console.log("Call to start timing.")
-    timeout = setTimeout(function(){timeUp}, time_before_blocking);
-    interval = setInterval(adjustTimeLeft, 1000);   
+    // console.log("Starting time.")
+    browser.storage.local.get(["timing"], function(result){
+        var val = result["timing"];
+        if(val == false){
+            browser.storage.local.set({"timing": true}); //Sets the boolean to true when timing begins
+
+            timeout = setTimeout(function(){timeUp}, time_before_blocking);
+            interval = setInterval(adjustTimeLeft, 1000);
+        }
+        else{
+            // console.log("Duplicate timing detected.");
+            //Restart
+            stopTime();
+            startTime(time_left);
+        }
+    });
 }
 
 function stopTime(){
     /*
         Function which is called when a user visits a non-blocklisted site
     */
+
+    // console.log("Stopping time.");
+    browser.storage.local.set({"timing": false}); // Set boolean to false when timing stops
+
     clearTimeout(timeout);
     clearInterval(interval);
-
-    console.log("Call to stop timing.");
 
     //Write the new time to storage file.
     browser.storage.local.set({"time_left": time_left});
@@ -458,5 +478,199 @@ function stopTime(){
 /* ============================================================================= */
 /* ============================================================================= */
 
+/*
+ * Prints object from local storage
+ * 
+ * Author: Claire Kolln
+ * 
+ * Args: Object retrieved from local storage
+ * 
+ * Returns: None
+ */
+function onStorage(item) {
+    console.log(Object.values(item)[0]);
+}
 
+/*
+ * Redirects back to the blocked website
+ * 
+ * Author: Claire Kolln
+ * 
+ * Args: Object retrieved from local storage
+ * 
+ * Returns: None
+ */
+
+function onGot(item) {
+    console.log(Object.values(item)[0]);
+    window.location = Object.values(item)[0];
+}
+
+/*
+ * Error logging for retrieving blocked site from local storage
+ * 
+ * Author: Claire Kolln
+ * 
+ * Args: Object retrieved from local storage
+ * 
+ * Returns: None
+ */ 
+
+function onError(error) {
+    console.log(`Error: ${error}`);
+}
+
+/*
+ * Gets the user's reason for going back to the blocklisted site
+ * 
+ * Author: Claire Kolln
+ * 
+ * Args: None
+ * 
+ * Returns: None 
+ */ 
+
+function createInput() {
+    
+    var reason = "";
+    var reasons_input = document.getElementById("reason");
+    
+    // add the select element, replacing the button 
+    reasons_input.innerHTML = '<div id="select"><select id="slct" name="reason_input"><option selected="selected">Please select a reason...</option> <option value="Task was work related">This is work related</option><option value="Was almost done with task">I am almost done</option><option value="Had no work that needed focus">I have nothing that needs focus</option><option value="Other">Other</option> </select><div>'
+    var select_field = document.getElementById("slct");
+   
+    // add a submit and redirect button
+    document.getElementById("submit_button").innerHTML = '<button class="btn" id="submit">Submit and Redirect</button>'
+    
+    // listen for change to the select element, assign reason variable
+    select_field.addEventListener('change', function() {
+        reason = select_field.options[select_field.selectedIndex].value;
+        
+        // if other is selected, add a text box for user input and remove if other is unselected
+        if (reason == "Other") {
+            console.log("Other selected");
+            document.getElementById("other").innerHTML = '<input type="text" id="other_reason" value="Enter other reason..."> </input>';
+        }
+        else {
+            document.getElementById("other").innerHTML = '';
+        }
+    });
+
+    // listen for submit button click
+    document.getElementById("submit").addEventListener('click', function() {
+        console.log("Clicked");
+        var is_other = 0;
+        
+        if (reason == "Other") {
+            console.log("OTHER");
+            reason =  document.getElementById("other_reason").value;
+            is_other = 1;
+            save_reason(reason,is_other);
+        }
+        else if (reason == "") {
+            document.getElementById("message").innerHTML = "<p>Please enter a reason</p>";
+        }
+        else {
+            save_reason(reason, is_other);
+        }
+    });
+
+    /*
+    * Gets the blockedSite from local storage, and redirects
+    * 
+    * Author: Claire Kolln
+    * 
+    * Args: None
+    * 
+    * Returns: None 
+    */ 
+    function redirectToBlocked() {
+        let site = browser.storage.local.get("blockedSite");
+        site.then(onGot,onError);
+    }
+
+    /*
+    * Tests to make sure values are being stored as expected
+    * 
+    * Author: Claire Kolln
+    * 
+    * Args: None
+    * 
+    * Returns: None 
+    */ 
+    function testStorage() {
+        let gettingReasons = browser.storage.local.get("reasons");
+        gettingReasons.then(onStorage,onError);
+    }
+
+    /*
+    * Adds 15 minutes to user's timeleft in local storage when they decide to stay on distracting site
+    * 
+    * Author: Claire Kolln
+    * 
+    * Args: None
+    * 
+    * Returns: None 
+    */ 
+   function addTime() {
+        // browser.storage.local.set({"time_left": 900000});
+        time_left += 900000;
+        browser.storage.local.set({"hoursLeft": 0});
+        browser.storage.local.set({"minutesLeft": 900000});
+    }
+
+    /*
+    * Saves reason in local storage
+    * 
+    * Author: Claire Kolln
+    * 
+    * Args: String (reason)
+    * 
+    * Returns: None 
+    */ 
+
+    function save_reason(reason, is_other) {
+        
+        console.log("Submitting reason " + reason);
+        var gettingReasons = browser.storage.local.get();
+        
+        gettingReasons.then(results => {
+
+            // if there are no reasons stored, initialize the object
+            console.log("Getting reasons");
+            
+            if (!results.reasons) {
+                console.log("There are no saved reasons, initializing");
+                results.reasons = {
+                    default: {},
+                    other: []
+                };
+            }
+
+            if (!is_other) {
+                results.reasons.default[reason] = results.reasons.default[reason] || 0;
+                results.reasons.default[reason]++;
+            }
+            else {
+                results.reasons.other.push(reason);
+            }
+
+            browser.storage.local.set({reasons: results.reasons});
+        })
+
+        addTime();
+        redirectToBlocked();
+        // browser.location.reload();
+    }
+}
+
+/*
+* Listens for "stay" button click and then calls createInput()
+* 
+* Author: Claire Kolln
+*/ 
+
+document.getElementById("stay").addEventListener('click', function() {
+    createInput();
+})
 
