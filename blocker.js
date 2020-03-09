@@ -1,7 +1,7 @@
 /**
  * Compare the current website to those in the blocklist, blocking if necessary
  * 
- * Author: Noah Tigner, Lucas Hyatt
+ * Author: Noah Tigner, Lucas Hyatt, Jimmy Lam
  * 
  * Args: blocklist, a list of objects of the form {site: , time: }
  * 
@@ -100,6 +100,8 @@ var printStorageInfo = 0;
  *      Adds a website to the block list. The current block list being used should be set equal
  *      to the return of this function, and the blocklist should be passed as an argument.
  *
+ *  Author: Jimmy Lam
+ *
  *  Args:
  *      url: The website url to add to the block list
  *      curBlockList: The current block list being used.
@@ -139,6 +141,8 @@ function addWebsite(url, curBlockList, checkDuplicates=0, shouldSave=0) {
  *      to the return of this function, and the blocklist should be passed as an argument. To
  *      delete all websites from the list, pass 'all' into theSite argument.
  *
+ *  Author: Jimmy Lam
+ *
  *  Args:
  *      url: The website url to add to the block list
  *      curBlockList: The current block list being used.
@@ -174,6 +178,16 @@ function removeWebsite(url, curBlockList, shouldSave=0) {
 
     return curBlockList;
 }
+
+/**
+ *  Saves the block list
+ *
+ *  Author: Jimmy Lam
+ *
+ *  Args: blocklist: the blocklist that contains websites to block
+ *
+ *  Returns:  
+ */
 
 function saveWebsites(blocklist) {
     // window.alert(JSON.stringify(blocklist));
