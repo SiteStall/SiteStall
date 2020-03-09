@@ -78,11 +78,11 @@ function renderChart(data,labels) {
             datasets: [{
                 data: data,
                 backgroundColor: [
-                    '#45281b',
+                    '#e1bf64',
                     '#64462d',
                     '#da7559',
                     '#8fb48c',
-                    '#e1bf64'
+                    '#45281b'
                 ]
             }],
         },
