@@ -87,9 +87,9 @@ function createInput() {
             if (reason !== "Enter other reason...") {
                 is_other = 1;
                 save_reason(reason, is_other);
-
             }
             else {
+                document.getElementById("message").innerHTML = "<p>No reason entered. Please enter a reason</p>";
                 reason = "Other";
             }
         }
