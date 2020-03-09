@@ -67,7 +67,6 @@ function listenForClicks() {
 		in1.setAttribute("type", "text");
 		in1.setAttribute("size", "25%");
 
-		// FIXME: setting here doesn't currently work when called by promised object
 		in1.setAttribute("placeholder", "site name");
 		// if(val === undefined) {
 		// 	in1.setAttribute("placeholder", "site name");
