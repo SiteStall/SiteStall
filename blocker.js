@@ -264,16 +264,17 @@ let timeStart = new Date().getTime();
 } 
 
 window.onfocus = function() {
-    console.log("FOCUSED");
+    // console.log("FOCUSED");
     browser.storage.local.get(["time_left"], function(result){
         time_left = result["time_left"];
-        console.log('Retrieved the variable time_left as:', time_left);
+
+        // console.log('Retrieved the variable time_left as:', time_left);
     });
     getWebsites();
 };
 
 window.onblur = function() {
-    console.log("BLURRED");
+    // console.log("BLURRED");
     browser.storage.local.set({"time_left": time_left});
     stopTime();
 };
@@ -289,20 +290,33 @@ function getTimes(){
     browser.storage.local.get(["thresholdHours"], function(result1){
         browser.storage.local.get(["thresholdMinutes"], function(result2){
             var threshHours = HoursToMinutes(result1["thresholdHours"]);
+
             var threshMins = result2["thresholdMinutes"];
             if(threshMins == NaN || threshHours == NaN || threshMins === undefined || threshHours === undefined){
-                threshold = 60;
+                threshold = 0;
                 console.log("Threshold set by default to:", threshold);
-                window.alert("No threshold set in widget. Threshold automatically set to 60 minutes");
+                // window.alert("No threshold set in widget. Threshold automatically set to 0 minutes");
                 // Setting the threshold value.
                 browser.storage.local.set({"threshold": threshold});
             }
             else{
                 // console.log("CALCULATED THRESHHOURS AS:", threshHours);
                 // console.log("CALCULATED THRESHMINS AS:", threshMins);
-                threshold = parseInt(threshHours, 10) + parseInt(threshMins, 10);
-                // console.log("CALCULATED THRESHOLD AS:", threshold);
-                console.log("Threshold from GUI:", threshold);
+                
+                threshHours = parseInt(threshHours, 10);
+                threshMins = parseInt(threshMins, 10);
+                
+                if(isNaN(threshHours)){
+                    // console.log("TYPERROR CHANGED HOURS");
+                    threshHours = 0;
+                }
+
+                // console.log("Hours from GUI:", threshHours);
+                // console.log("Mins from GUI:", threshMins);
+                threshold = threshHours + threshMins;
+
+                // console.log("Threshold from GUI:", threshold);
+                
                 // Setting the threshold value.
                 browser.storage.local.set({"threshold": threshold});
             }
@@ -310,13 +324,13 @@ function getTimes(){
             browser.storage.local.get(["time_left"], function(result){
                 var val = result["time_left"];
                 if (val === undefined || val == NaN){ // Hasn't been set before, establish as threshold.
-                    console.log("Current value of threshold is:", threshold);
+                    // console.log("Current value of threshold is:", threshold);
                     time_left = MinutesToMilliseconds(threshold); //Variable used in tracking time
                     console.log('Set time_left as:', time_left);
                 }
                 else{
                     time_left = val;
-                    console.log('Retrieved the variable time_left as:', time_left);
+                    // console.log('Retrieved the variable time_left as:', time_left);
                 }
             });
         });
@@ -325,7 +339,7 @@ function getTimes(){
     // Also set current date in local storage
     var curr_date = new Date();
     var day = curr_date.getDay();
-    console.log("Current date is:", day);
+    // console.log("Current date is:", day);
     browser.storage.local.set({"curr_date": day});
 }
 
