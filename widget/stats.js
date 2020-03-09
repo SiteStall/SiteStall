@@ -55,8 +55,6 @@ function getTopSites() {
     })
 }
 
-
-
 /*
  * Use data to render pie chart
  * 
@@ -156,8 +154,7 @@ function getData() {
         // if there are no reasons stored, display that
         console.log("Getting reasons");
         if (!results.reasons) {
-            document.getElementById("pie-chart").innerHTML = '<p> Yay! You have not gone past your time limit </p>';
-            // display that there are no reasons so display
+            document.getElementById("pie-chart").innerHTML = '<p> You have not gone past your time limit so there is no distraction data to display. Good job staying focused!</p>';
             console.log("There are no saved reasons -> user hasn't chosen to stay distracted");
         }
         else {
@@ -170,7 +167,6 @@ function getData() {
             data.push(Object.keys(results.reasons.other).length);
             labels.push("Other");
 
-            // console.log(data.datasets);
             renderChart(data,labels);
             listOther(results.reasons.other);
 
