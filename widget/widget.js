@@ -1,13 +1,43 @@
+
 document.getElementById('dailyHour').addEventListener('change', function() {
 	browser.storage.local.set({thresholdHours: this.value});
 	browser.storage.local.set({hoursLeft: this.value});
+
+	let threshHour =  document.getElementById('dailyHour').value;
+	let threshMin =  document.getElementById('dailyMin').value;
+	threshHour = parseInt(threshHour);
+	threshMin = parseInt(threshMin);
+
+	var threshold = threshHour * 60;
+	threshold += threshMin;
+	var time_left = threshold * 60000; 
+
+	// window.alert("threshold is:" + threshold);
+	// window.alert("time_left is:" + time_left);
+
+	browser.storage.local.set({"threshold": threshold});
+	browser.storage.local.set({"time_left": time_left});
 });
 
 document.getElementById('dailyMin').addEventListener('change', function() {
 	browser.storage.local.set({thresholdMinutes: this.value});
 	browser.storage.local.set({minutesLeft: this.value});
-});
 
+	let threshHour =  document.getElementById('dailyHour').value;
+	let threshMin =  document.getElementById('dailyMin').value;
+	threshHour = parseInt(threshHour);
+	threshMin = parseInt(threshMin);
+
+	var threshold = threshHour * 60;
+	threshold += threshMin;
+	var time_left = threshold * 60000; 
+
+	// window.alert("threshold is:" + threshold);
+	// window.alert("time_left is:" + time_left);
+
+	browser.storage.local.set({"threshold": threshold});
+	browser.storage.local.set({"time_left": time_left});
+});
 
 /**
  * Listen for clicks on the buttons, and send the appropriate message to

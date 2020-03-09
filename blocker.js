@@ -298,8 +298,8 @@ function getTimes(){
                 browser.storage.local.set({"threshold": threshold});
             }
             else{
-                // console.log("CALCULATED THRESHHOURS AS:", threshHours);
-                // console.log("CALCULATED THRESHMINS AS:", threshMins);
+                console.log("CALCULATED THRESHHOURS AS:", threshHours);
+                console.log("CALCULATED THRESHMINS AS:", threshMins);
                 threshold = parseInt(threshHours, 10) + parseInt(threshMins, 10);
                 // console.log("CALCULATED THRESHOLD AS:", threshold);
                 console.log("Threshold from GUI:", threshold);
