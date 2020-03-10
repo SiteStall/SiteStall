@@ -30,6 +30,7 @@ function compareURL(blocklist) {
 
 /**
  * Checks to see if the url should be blocked. fixed robustness for:
+ *      - user added capital letter to website by mistake
  *      - user url omits www. but website has it
  *      - website doesn't have www. but user url has it
  *      - user copies full url (including https) into block list
@@ -57,7 +58,13 @@ function shouldBeBlocked(in_url) {
     if (web_url.localeCompare(in_url) === 0) {
         return 1;
     }
-    // everything past here means in_url and web_url don't match
+    // --- everything past here means in_url and web_url don't match ---
+
+    // convert url to lowercase and try again
+    in_url = in_url.toLowerCase();
+    if (web_url.localeCompare(in_url) === 0) {
+        return 1;
+    }
     // add www. to in_url if it doesn't have it but web_url does
     else if (firstfour_web_url.localeCompare('www.') === 0) {
         in_url = 'www.' + in_url;
