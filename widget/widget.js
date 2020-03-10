@@ -54,7 +54,7 @@ function listenForClicks() {
 	 *
 	 * Returns:
 	 */
-	function add_row(tabs, val) {
+	function add_row(tabs) {
 		let tr = document.createElement("TR");
 		let td1 = document.createElement("TD");
 		let td2 = document.createElement("TD");
@@ -316,20 +316,6 @@ function listenForClicks() {
 				row.setAttribute("value", "");
 				row.setAttribute("placeholder", "site name");
 			}
-		}
-
-		function settings(tabs) {
-			window.alert("block-widget");
-			browser.tabs.sendMessage(tabs[0].id, {
-				command: "settings"
-			});
-		}
-
-		function stats(tabs) {
-			window.alert("unblock-widget");
-			browser.tabs.sendMessage(tabs[0].id, {
-				command: "stats"
-			});
 		}
 
 		/**
