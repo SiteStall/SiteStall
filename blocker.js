@@ -22,8 +22,8 @@ function compareURL(blocklist) {
             break;
         }
         else{
-            stopTime();
             // console.log("Not blocklisted.");
+            stopTime();
         }
     }
 }
@@ -91,6 +91,7 @@ function block() {
     browser.storage.local.set({blockedSite: window.location.href});
     // console.log("RELOCATION!!!");
     console.log(window.location.href);
+    // console.log("REDIRECTION");
     window.location = browser.extension.getURL("blocked.html");
 }
 
@@ -348,7 +349,7 @@ function getTimes(){
                 }
                 else{
                     time_left = val;
-                    startTime(time_left);
+                    getWebsites();
                     // console.log('Retrieved the variable time_left as:', time_left);
                 }
             });
@@ -411,6 +412,7 @@ function adjustTimeLeft(){
     /*
         Function which decrements the time left every second.
     */
+    // console.log("Call to time_left");
     if(time_left === undefined || time_left == NaN){
         // console.log("Detected time_left error, reset time_left to threshold.");
         browser.storage.local.get(["threshold"], function(result){
@@ -451,7 +453,7 @@ function startTime(time_before_blocking){
     */
 
     //Triggered when they visit a blockslisted site.
-    // console.log("Starting time.")
+    // console.log("Call to startTime.");
     browser.storage.local.get(["timing"], function(result){
         var val = result["timing"];
         if(val == false){
@@ -463,6 +465,7 @@ function startTime(time_before_blocking){
         else{
             // console.log("Duplicate timing detected.");
             //Restart
+
             stopTime();
             startTime(time_left);
         }
